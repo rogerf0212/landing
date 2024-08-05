@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:landing/pages/basepage.dart';
+import 'package:landing/pages/diasort.dart';
 import 'dart:typed_data';
+
+import 'package:landing/pages/mecpage.dart';
+
 
 class RegistroColmado extends StatefulWidget {
   @override
@@ -37,49 +42,113 @@ class _RegistroColmadoState extends State<RegistroColmado> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text('Registro Colmado'),
+        leading: IconButton(
+          icon: Image.asset('assets/logo.png'), // Asegúrate de tener esta imagen en tu carpeta assets
+          onPressed: () {
+            // Lógica para ir a la página de inicio
+          },
+        ),
         actions: [
-          TextButton(
-            onPressed: () {
-              // Lógica para ir a la página de inicio
-            },
-            child: Text(
-              'Inicio',
-              style: TextStyle(color: Colors.white),
+          if (MediaQuery.of(context).size.width > 600) ...[
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MecanicaPage()),
+                );
+              },
+              child: Text(
+                'Mecánica',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
-          ),
-          Spacer(),
-          TextButton(
-            onPressed: () {
-              // Lógica para ir a la página de Mecánica
-            },
-            child: Text(
-              'Mecánica',
-              style: TextStyle(color: Colors.white),
+            SizedBox(width: 20),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => BaseLegalPage()),
+                );
+              },
+              child: Text(
+                'Base Legal',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
-          ),
-          SizedBox(width: 20),
-          TextButton(
-            onPressed: () {
-              // Lógica para ir a la página de Base Legal
-            },
-            child: Text(
-              'Base Legal',
-              style: TextStyle(color: Colors.white),
+            SizedBox(width: 20),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DiasDelSorteoPage()),
+                );
+              },
+              child: Text(
+                'Días del Sorteo',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
-          ),
-          SizedBox(width: 20),
-          TextButton(
-            onPressed: () {
-              // Lógica para ir a la página de Días del Sorteo
-            },
-            child: Text(
-              'Días del Sorteo',
-              style: TextStyle(color: Colors.white),
+            SizedBox(width: 20),
+          ] else ...[
+            Builder(
+              builder: (context) => IconButton(
+                icon: Icon(Icons.menu, color: Colors.white),
+                onPressed: () {
+                  Scaffold.of(context).openEndDrawer();
+                },
+              ),
             ),
-          ),
-          SizedBox(width: 20),
+          ],
         ],
+      ),
+      endDrawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text(
+                'Menú',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.info),
+              title: Text('Mecánica'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MecanicaPage()),
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.gavel),
+              title: Text('Base Legal'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => BaseLegalPage()),
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.calendar_today),
+              title: Text('Días del Sorteo'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DiasDelSorteoPage()),
+                );
+              },
+            ),
+          ],
+        ),
       ),
       body: Stack(
         children: [
