@@ -34,19 +34,47 @@ class _RegistroColmadoState extends State<RegistroColmado> {
   }
 
   void _submitForm() async {
-    if (_formKey.currentState!.validate()) {
-      Colmado colmado = Colmado(
-        nombre: _nombreController.text,
-        cedula: _cedulaController.text,
-        telefono: _telefonoController.text,
-        email: _emailController.text,
-        codigoProducto: _codigoProductoController.text,
-        imagen: _imageBytes!,
-      );
-      await DatabaseHelper().insertColmado(colmado);
-      // Mostrar un mensaje de éxito o redirigir a otra página
-    }
+  if (_formKey.currentState!.validate()) {
+    Colmado colmado = Colmado(
+      nombre: _nombreController.text,
+      cedula: _cedulaController.text,
+      telefono: _telefonoController.text,
+      email: _emailController.text,
+      codigoProducto: _codigoProductoController.text,
+      imagen: _imageBytes!,
+    );
+    await DatabaseHelper().insertColmado(colmado);
+
+    // Mostrar cuadro de diálogo
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('¡Gracias por participar!'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Cerrar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _formKey.currentState!.reset();
+                _nombreController.clear();
+                _cedulaController.clear();
+                _telefonoController.clear();
+                _emailController.clear();
+                _codigoProductoController.clear();
+                setState(() {
+                  _imageBytes = null;
+                  _fileName = null;
+                });
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
+}
+
 
   @override
   Widget build(BuildContext context) {
