@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:landing/pages/colreg.dart';
+import 'package:landing/pages/dashboard.dart';
 import 'package:landing/pages/supreg.dart';
+import 'package:go_router/go_router.dart';
 
 
 void main() {
@@ -17,6 +19,20 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
+  final GoRouter _router = GoRouter(
+    routes: [
+      GoRoute(
+        path: '/',
+        builder: (context, state) => RegistroColmado(),
+      ),
+      GoRoute(
+        path: '/dashboard',
+        builder: (context, state) => Dashboard(),
+      ),
+    ],
+  );
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

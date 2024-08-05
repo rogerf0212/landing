@@ -44,18 +44,18 @@ class DatabaseHelper {
   }
 
   Future<List<Colmado>> getColmados() async {
-    Database db = await database;
-    List<Map<String, dynamic>> maps = await db.query('colmado');
-    return List.generate(maps.length, (i) {
-      return Colmado(
-        id: maps[i]['id'],
-        nombre: maps[i]['nombre'],
-        cedula: maps[i]['cedula'],
-        telefono: maps[i]['telefono'],
-        email: maps[i]['email'],
-        codigoProducto: maps[i]['codigoProducto'],
-        imagen: maps[i]['imagen'],
-      );
-    });
-  }
+  Database db = await database;
+  List<Map<String, dynamic>> maps = await db.query('colmado', orderBy: 'id ASC');
+  return List.generate(maps.length, (i) {
+    return Colmado(
+      id: maps[i]['id'],
+      nombre: maps[i]['nombre'],
+      cedula: maps[i]['cedula'],
+      telefono: maps[i]['telefono'],
+      email: maps[i]['email'],
+      codigoProducto: maps[i]['codigoProducto'],
+      imagen: maps[i]['imagen'],
+    );
+  });
+}
 }
