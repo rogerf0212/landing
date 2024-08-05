@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:landing/pages/basepage.dart';
 import 'package:landing/pages/diasort.dart';
-import 'dart:typed_data';
-
 import 'package:landing/pages/mecpage.dart';
-
-
-class RegistroColmado extends StatefulWidget {
+import 'dart:typed_data';
+import 'database_helper.dart';
+import 'colmado.dart';    
+      
+      class RegistroColmado extends StatefulWidget {
   @override
   _RegistroColmadoState createState() => _RegistroColmadoState();
 }
@@ -16,6 +16,11 @@ class _RegistroColmadoState extends State<RegistroColmado> {
   final _formKey = GlobalKey<FormState>();
   Uint8List? _imageBytes;
   String? _fileName;
+  final _nombreController = TextEditingController();
+  final _cedulaController = TextEditingController();
+  final _telefonoController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _codigoProductoController = TextEditingController();
 
   Future<void> _pickImage() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.image);
@@ -28,10 +33,18 @@ class _RegistroColmadoState extends State<RegistroColmado> {
     }
   }
 
-  void _submitForm() {
+  void _submitForm() async {
     if (_formKey.currentState!.validate()) {
-      // Lógica para enviar el formulario junto con la imagen
-      // Aquí puedes manejar el envío de los datos del formulario y la imagen
+      Colmado colmado = Colmado(
+        nombre: _nombreController.text,
+        cedula: _cedulaController.text,
+        telefono: _telefonoController.text,
+        email: _emailController.text,
+        codigoProducto: _codigoProductoController.text,
+        imagen: _imageBytes!,
+      );
+      await DatabaseHelper().insertColmado(colmado);
+      // Mostrar un mensaje de éxito o redirigir a otra página
     }
   }
 
@@ -173,6 +186,7 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                       children: [
                         SizedBox(height: 100), // Espacio para el AppBar
                         TextFormField(
+                          controller: _nombreController,
                           decoration: InputDecoration(
                             labelText: 'Nombre',
                             border: OutlineInputBorder(
@@ -188,104 +202,108 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                         ),
                         SizedBox(height: 20),
                         TextFormField(
+                          controller: _cedulaController,
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
-                            labelText: 'Cédula',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          validator: (value) {
-                            if (value == null || value.length != 11) {
-                              return 'La cédula no es válida';
-                            }
-                            return null;
-                          },
-                        ),
-                        SizedBox(height: 20),
-                        TextFormField(
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            labelText: 'Número de teléfono',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          validator: (value) {
-                            if (value == null || value.length != 10) {
-                              return 'El número no es válido';
-                            }
-                            return null;
-                          },
-                        ),
-                        SizedBox(height: 20),
-                        TextFormField(
-                          decoration: InputDecoration(
-                            labelText: 'Correo electrónico',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Por favor ingrese su correo electrónico';
-                            }
-                            return null;
-                          },
-                        ),
-                        SizedBox(height: 20),
-                        TextFormField(
-                          decoration: InputDecoration(
-                            labelText: 'Código de producto',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Por favor ingrese el código de producto';
-                            }
-                            return null;
-                          },
-                        ),
-                        SizedBox(height: 20),
-                        ElevatedButton(
-                          onPressed: _pickImage,
-                          child: Text('Subir imagen'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue,
-                            fixedSize: Size(200, 50),
-                            elevation: 5,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            shadowColor: Colors.black,
-                          ),
-                        ),
-                        if (_imageBytes != null) ...[
-                          SizedBox(height: 20),
-                          Image.memory(
-                            _imageBytes!,
-                            height: 100,
-                            width: 100,
-                          ),
-                        ],
-                        SizedBox(height: 20),
-                        ElevatedButton(
-                          onPressed: _submitForm,
-                          child: Text('Enviar'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue,
-                            fixedSize: Size(200, 50),
-                            elevation: 5,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            shadowColor: Colors.black,
-                          ),
-                        ),
-                        SizedBox(height: 100), // Espacio para el BottomAppBar
-                      ],
+      labelText: 'Cédula',
+border: OutlineInputBorder(
+  borderRadius: BorderRadius.circular(10),
+),
+),
+validator: (value) {
+  if (value == null || value.length != 11) {
+    return 'La cédula no es válida';
+  }
+  return null;
+},
+),
+SizedBox(height: 20),
+TextFormField(
+  controller: _telefonoController,
+  keyboardType: TextInputType.number,
+  decoration: InputDecoration(
+    labelText: 'Número de teléfono',
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10),
+    ),
+  ),
+  validator: (value) {
+    if (value == null || value.length != 10) {
+      return 'El número no es válido';
+    }
+    return null;
+  },
+),
+SizedBox(height: 20),
+TextFormField(
+  controller: _emailController,
+  decoration: InputDecoration(
+    labelText: 'Correo electrónico',
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10),
+    ),
+  ),
+  validator: (value) {
+    if (value == null || value.isEmpty) {
+      return 'Por favor ingrese su correo electrónico';
+    }
+    return null;
+  },
+),
+SizedBox(height: 20),
+TextFormField(
+  controller: _codigoProductoController,
+  decoration: InputDecoration(
+    labelText: 'Código de producto',
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10),
+    ),
+  ),
+  validator: (value) {
+    if (value == null || value.isEmpty) {
+      return 'Por favor ingrese el código de producto';
+    }
+    return null;
+  },
+),
+SizedBox(height: 20),
+ElevatedButton(
+  onPressed: _pickImage,
+  child: Text('Subir imagen'),
+  style: ElevatedButton.styleFrom(
+    backgroundColor: Colors.blue,
+    fixedSize: Size(200, 50),
+    elevation: 5,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10),
+    ),
+    shadowColor: Colors.black,
+  ),
+),
+if (_imageBytes != null) ...[
+  SizedBox(height: 20),
+  Image.memory(
+    _imageBytes!,
+    height: 100,
+    width: 100,
+  ),
+],
+SizedBox(height: 20),
+ElevatedButton(
+  onPressed: _submitForm,
+  child: Text('Enviar'),
+  style: ElevatedButton.styleFrom(
+    backgroundColor: Colors.blue,
+    fixedSize: Size(200, 50),
+    elevation: 5,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10),
+    ),
+    shadowColor: Colors.black,
+  ),
+),
+SizedBox(height: 100),
+     ],
                     ),
                   ),
                 ),
