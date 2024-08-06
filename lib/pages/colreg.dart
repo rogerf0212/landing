@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:landing/main.dart';
+import 'dart:typed_data';
+import 'database_helper.dart';
+import 'colmado.dart';
 import 'package:landing/pages/basepage.dart';
 import 'package:landing/pages/diasort.dart';
 import 'package:landing/pages/mecpage.dart';
-import 'dart:typed_data';
-import 'database_helper.dart';
-import 'colmado.dart';    
-      
-      class RegistroColmado extends StatefulWidget {
+
+class RegistroColmado extends StatefulWidget {
   @override
   _RegistroColmadoState createState() => _RegistroColmadoState();
 }
@@ -34,47 +35,36 @@ class _RegistroColmadoState extends State<RegistroColmado> {
   }
 
   void _submitForm() async {
-  if (_formKey.currentState!.validate()) {
-    Colmado colmado = Colmado(
-      nombre: _nombreController.text,
-      cedula: _cedulaController.text,
-      telefono: _telefonoController.text,
-      email: _emailController.text,
-      codigoProducto: _codigoProductoController.text,
-      imagen: _imageBytes!,
-    );
-    await DatabaseHelper().insertColmado(colmado);
+    if (_formKey.currentState!.validate()) {
+      Colmado colmado = Colmado(
+        nombre: _nombreController.text,
+        cedula: _cedulaController.text,
+        telefono: _telefonoController.text,
+        email: _emailController.text,
+        codigoProducto: _codigoProductoController.text,
+        imagen: _imageBytes!,
+      );
+      await DatabaseHelper().insertColmado(colmado);
 
-    // Mostrar cuadro de diálogo
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('¡Gracias por participar!'),
-          actions: <Widget>[
-            TextButton(
-              child: Text('Cerrar'),
-              onPressed: () {
-                Navigator.of(context).pop();
-                _formKey.currentState!.reset();
-                _nombreController.clear();
-                _cedulaController.clear();
-                _telefonoController.clear();
-                _emailController.clear();
-                _codigoProductoController.clear();
-                setState(() {
-                  _imageBytes = null;
-                  _fileName = null;
-                });
-              },
-            ),
-          ],
-        );
-      },
-    );
+      // Mostrar cuadro de diálogo
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('¡Gracias por participar!'),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Cerrar'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
-}
-
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +74,15 @@ class _RegistroColmadoState extends State<RegistroColmado> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: Image.asset('assets/logo.png'), // Asegúrate de tener esta imagen en tu carpeta assets
+          icon: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HomePage()), // Asegúrate de tener una HomePage definida
+              );
+            },
+            child: Image.asset('assets/logo.png'), // Asegúrate de tener esta imagen en tu carpeta assets
+          ),
           onPressed: () {
             // Lógica para ir a la página de inicio
           },
@@ -143,52 +141,44 @@ class _RegistroColmadoState extends State<RegistroColmado> {
         ],
       ),
       endDrawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
+        child: Container(
+          color: Colors.lightBlue, // Fondo azul claro
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              // Eliminamos el DrawerHeader y la línea divisoria
+              ListTile(
+                leading: Icon(Icons.info, color: Colors.white),
+                title: Text('Mecánica', style: TextStyle(color: Colors.white)),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MecanicaPage()),
+                  );
+                },
               ),
-              child: Text(
-                'Menú',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
+              ListTile(
+                leading: Icon(Icons.gavel, color: Colors.white),
+                title: Text('Base Legal', style: TextStyle(color: Colors.white)),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => BaseLegalPage()),
+                  );
+                },
               ),
-            ),
-            ListTile(
-              leading: Icon(Icons.info),
-              title: Text('Mecánica'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MecanicaPage()),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.gavel),
-              title: Text('Base Legal'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => BaseLegalPage()),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.calendar_today),
-              title: Text('Días del Sorteo'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => DiasDelSorteoPage()),
-                );
-              },
-            ),
-          ],
+              ListTile(
+                leading: Icon(Icons.calendar_today, color: Colors.white),
+                title: Text('Días del Sorteo', style: TextStyle(color: Colors.white)),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => DiasDelSorteoPage()),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
       body: Stack(
@@ -196,7 +186,7 @@ class _RegistroColmadoState extends State<RegistroColmado> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/background.jpg'), // Asegúrate de tener esta imagen en tu carpeta assets
+                image: AssetImage('images/fondo.png'), // Asegúrate de tener esta imagen en tu carpeta assets
                 fit: BoxFit.cover,
               ),
             ),
@@ -233,105 +223,105 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                           controller: _cedulaController,
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
-      labelText: 'Cédula',
-border: OutlineInputBorder(
-  borderRadius: BorderRadius.circular(10),
-),
-),
-validator: (value) {
-  if (value == null || value.length != 11) {
-    return 'La cédula no es válida';
-  }
-  return null;
-},
-),
-SizedBox(height: 20),
-TextFormField(
-  controller: _telefonoController,
-  keyboardType: TextInputType.number,
-  decoration: InputDecoration(
-    labelText: 'Número de teléfono',
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(10),
-    ),
-  ),
-  validator: (value) {
-    if (value == null || value.length != 10) {
-      return 'El número no es válido';
-    }
-    return null;
-  },
-),
-SizedBox(height: 20),
-TextFormField(
-  controller: _emailController,
-  decoration: InputDecoration(
-    labelText: 'Correo electrónico',
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(10),
-    ),
-  ),
-  validator: (value) {
-    if (value == null || value.isEmpty) {
-      return 'Por favor ingrese su correo electrónico';
-    }
-    return null;
-  },
-),
-SizedBox(height: 20),
-TextFormField(
-  controller: _codigoProductoController,
-  decoration: InputDecoration(
-    labelText: 'Código de producto',
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(10),
-    ),
-  ),
-  validator: (value) {
-    if (value == null || value.isEmpty) {
-      return 'Por favor ingrese el código de producto';
-    }
-    return null;
-  },
-),
-SizedBox(height: 20),
-ElevatedButton(
-  onPressed: _pickImage,
-  child: Text('Subir imagen'),
-  style: ElevatedButton.styleFrom(
-    backgroundColor: Colors.blue,
-    fixedSize: Size(200, 50),
-    elevation: 5,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(10),
-    ),
-    shadowColor: Colors.black,
-  ),
-),
-if (_imageBytes != null) ...[
-  SizedBox(height: 20),
-  Image.memory(
-    _imageBytes!,
-    height: 100,
-    width: 100,
-  ),
-],
-SizedBox(height: 20),
-ElevatedButton(
-  onPressed: _submitForm,
-  child: Text('Enviar'),
-  style: ElevatedButton.styleFrom(
-    backgroundColor: Colors.blue,
-    fixedSize: Size(200, 50),
-    elevation: 5,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(10),
-    ),
-    shadowColor: Colors.black,
-  ),
-),
-SizedBox(height: 100),
-     ],
+                            labelText: 'Cédula',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.length != 11) {
+                              return 'La cédula no es válida';
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: 20),
+                        TextFormField(
+                          controller: _telefonoController,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            labelText: 'Número de teléfono',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.length != 10) {
+                              return 'El número no es válido';
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: 20),
+                        TextFormField(
+                          controller: _emailController,
+                          decoration: InputDecoration(
+                            labelText: 'Correo electrónico',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Por favor ingrese su correo electrónico';
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: 20),
+                        TextFormField(
+                          controller: _codigoProductoController,
+                          decoration: InputDecoration(
+                            labelText: 'Código de producto',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Por favor ingrese el código de producto';
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: _pickImage,
+                          child: Text('Subir imagen'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blue,
+                            fixedSize: Size(200, 50),
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            shadowColor: Colors.black,
+                          ),
+                        ),
+                        if (_imageBytes != null) ...[
+                          SizedBox(height: 20),
+                          Image.memory(
+                            _imageBytes!,
+                            height: 100,
+                            width: 100,
+                          ),
+                        ],
+                        SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: _submitForm,
+                          child: Text('Enviar'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blue,
+                            fixedSize: Size(200, 50),
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            shadowColor: Colors.black,
+                          ),
+                        ),
+                        SizedBox(height: 100),
+                      ],
                     ),
                   ),
                 ),
@@ -388,3 +378,4 @@ SizedBox(height: 100),
     );
   }
 }
+

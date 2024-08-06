@@ -19,19 +19,7 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  final GoRouter _router = GoRouter(
-    routes: [
-      GoRoute(
-        path: '/',
-        builder: (context, state) => RegistroColmado(),
-      ),
-      GoRoute(
-        path: '/dashboard',
-        builder: (context, state) => Dashboard(),
-      ),
-    ],
-  );
-
+  
 
   @override
   Widget build(BuildContext context) {
