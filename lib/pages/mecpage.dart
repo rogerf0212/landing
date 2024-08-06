@@ -122,7 +122,7 @@ class MecanicaPage extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/background.jpg'), // Asegúrate de tener esta imagen en tu carpeta assets
+            image: AssetImage('images/fondo.png'), // Asegúrate de tener esta imagen en tu carpeta assets
             fit: BoxFit.cover,
           ),
         ),
