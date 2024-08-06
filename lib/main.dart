@@ -3,9 +3,15 @@ import 'package:landing/pages/colreg.dart';
 import 'package:landing/pages/dashboard.dart';
 import 'package:landing/pages/supreg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
+void main() async {
+  // Inicializa FFI
+  sqfliteFfiInit();
 
-void main() {
+  // Cambia la fábrica de la base de datos por la de FFI
+  databaseFactory = databaseFactoryFfi;
+
   runApp(MyApp());
 }
 

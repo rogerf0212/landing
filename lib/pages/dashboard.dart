@@ -38,15 +38,11 @@ class _DashboardState extends State<Dashboard> {
                 Colmado colmado = snapshot.data![index];
                 return Card(
                   child: ListTile(
-                    leading: Image.memory(colmado.imagen, width: 50, height: 50),
-                    title: Text(colmado.nombre),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    title: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Cédula: ${colmado.cedula}'),
-                        Text('Teléfono: ${colmado.telefono}'),
-                        Text('Correo: ${colmado.email}'),
-                        Text('Código de Producto: ${colmado.codigoProducto}'),
+                        Text(colmado.nombre),
+                        Text(colmado.cedula),
                       ],
                     ),
                   ),

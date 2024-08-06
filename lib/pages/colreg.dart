@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:landing/main.dart';
+import 'package:landing/pages/dashboard.dart';
 import 'dart:typed_data';
 import 'database_helper.dart';
 import 'colmado.dart';
@@ -320,6 +321,24 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                             shadowColor: Colors.black,
                           ),
                         ),
+                        ElevatedButton(
+  onPressed: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => Dashboard()), // Asegúrate de tener una DashboardPage definida
+    );
+  },
+  child: Text('Ir al Dashboard'),
+  style: ElevatedButton.styleFrom(
+    backgroundColor: Colors.green,
+    fixedSize: Size(200, 50),
+    elevation: 5,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10),
+    ),
+    shadowColor: Colors.black,
+  ),
+),
                         SizedBox(height: 100),
                       ],
                     ),
