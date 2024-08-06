@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:landing/main.dart';
-import 'package:landing/pages/dashboard.dart';
 import 'dart:typed_data';
+import 'package:cloud_firestore/cloud_firestore.dart'; // Importa Firestore
+import 'package:landing/pages/dashboard.dart';
 import 'database_helper.dart';
 import 'colmado.dart';
 import 'package:landing/pages/basepage.dart';
@@ -37,33 +38,43 @@ class _RegistroColmadoState extends State<RegistroColmado> {
 
   void _submitForm() async {
     if (_formKey.currentState!.validate()) {
-      Colmado colmado = Colmado(
-        nombre: _nombreController.text,
-        cedula: _cedulaController.text,
-        telefono: _telefonoController.text,
-        email: _emailController.text,
-        codigoProducto: _codigoProductoController.text,
-        imagen: _imageBytes!,
-      );
-      await DatabaseHelper().insertColmado(colmado);
+      // Crear un mapa con los datos del formulario
+      Map<String, dynamic> formData = {
+        'nombre': _nombreController.text,
+        'cedula': _cedulaController.text,
+        'telefono': _telefonoController.text,
+        'email': _emailController.text,
+        'codigoProducto': _codigoProductoController.text,
+      };
 
-      // Mostrar cuadro de diálogo
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('¡Gracias por participar!'),
-            actions: <Widget>[
-              TextButton(
-                child: Text('Cerrar'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
+      // Guardar los datos en Firestore
+      try {
+        await FirebaseFirestore.instance
+            .collection('registros') // Cambia 'registros' al nombre de tu colección
+            .add(formData);
+
+        // Mostrar un mensaje de éxito
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('¡Datos guardados!'),
+              content: Text('Los datos se han guardado correctamente.'),
+              actions: <Widget>[
+                TextButton(
+                  child: Text('Cerrar'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      } catch (e) {
+        // Manejar errores (por ejemplo, si no se puede conectar a Firestore)
+        print('Error al guardar los datos: $e');
+      }
     }
   }
 
