@@ -41,7 +41,7 @@ class LandingLocation extends BeamLocation<BeamState> {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
- await Firebase.initializeApp(
+  Firebase.initializeApp(
   options: const FirebaseOptions(
   apiKey: "AIzaSyBn1l8EL2fFJ9BrancAttotBlu5dCoor_A",
   authDomain: "landing-7f255.firebaseapp.com",
