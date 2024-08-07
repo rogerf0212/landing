@@ -1,11 +1,11 @@
+import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:landing/main.dart';
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart'; // Importa Firestore
-import 'package:landing/pages/dashboard.dart';
-import 'database_helper.dart';
-import 'colmado.dart';
+import 'package:landing/pages/dash.dart';
+import 'package:landing/pages/colmado.dart';
 import 'package:landing/pages/basepage.dart';
 import 'package:landing/pages/diasort.dart';
 import 'package:landing/pages/mecpage.dart';
@@ -17,52 +17,34 @@ class RegistroColmado extends StatefulWidget {
 
 class _RegistroColmadoState extends State<RegistroColmado> {
   final _formKey = GlobalKey<FormState>();
-  Uint8List? _imageBytes;
-  String? _fileName;
   final _nombreController = TextEditingController();
   final _cedulaController = TextEditingController();
   final _telefonoController = TextEditingController();
   final _emailController = TextEditingController();
   final _codigoProductoController = TextEditingController();
-
-  Future<void> _pickImage() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.image);
-
-    if (result != null) {
-      setState(() {
-        _imageBytes = result.files.first.bytes;
-        _fileName = result.files.first.name;
-      });
-    }
-  }
+  final String _realizoCompra = 'Realizó la compra en un colmado';
 
   void _submitForm() async {
     if (_formKey.currentState!.validate()) {
-      // Crear un mapa con los datos del formulario
-      Map<String, dynamic> formData = {
-        'nombre': _nombreController.text,
-        'cedula': _cedulaController.text,
-        'telefono': _telefonoController.text,
-        'email': _emailController.text,
-        'codigoProducto': _codigoProductoController.text,
-      };
+      // Consulta Firestore para verificar si el código de producto ya existe
+      final existingProduct = await FirebaseFirestore.instance
+          .collection('registros')
+          .where('codigoProducto', isEqualTo: _codigoProductoController.text)
+          .get();
 
-      // Guardar los datos en Firestore
-      try {
-        await FirebaseFirestore.instance
-            .collection('registros') // Cambia 'registros' al nombre de tu colección
-            .add(formData);
-
-        // Mostrar un mensaje de éxito
+      if (existingProduct.docs.isNotEmpty) {
+        // El código de producto ya existe, muestra un mensaje de error
         showDialog(
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text('¡Datos guardados!'),
-              content: Text('Los datos se han guardado correctamente.'),
+              title: Text('Error', style: TextStyle(color: Colors.white)),
+              content: Text('Este código de producto ya fue registrado.',
+                  style: TextStyle(color: Colors.white)),
+              backgroundColor: Colors.lightBlue, // Fondo azul cielo
               actions: <Widget>[
                 TextButton(
-                  child: Text('Cerrar'),
+                  child: Text('Cerrar', style: TextStyle(color: Colors.white)),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -71,9 +53,50 @@ class _RegistroColmadoState extends State<RegistroColmado> {
             );
           },
         );
-      } catch (e) {
-        // Manejar errores (por ejemplo, si no se puede conectar a Firestore)
-        print('Error al guardar los datos: $e');
+      } else {
+        // Guardar los datos en Firestore
+        try {
+          await FirebaseFirestore.instance.collection('registros').add({
+            'nombre': _nombreController.text,
+            'cedula': _cedulaController.text,
+            'telefono': _telefonoController.text,
+            'email': _emailController.text,
+            'codigoProducto': _codigoProductoController.text,
+            'realizoCompra': _realizoCompra,
+          });
+
+          // Mostrar un cuadro de diálogo personalizado
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('¡Gracias por participar!',
+                    style: TextStyle(color: Colors.white)),
+                content:
+                    Text('Suerteeeeee', style: TextStyle(color: Colors.white)),
+                backgroundColor: Colors.lightBlue, // Fondo azul cielo
+                actions: <Widget>[
+                  TextButton(
+                    child:
+                        Text('Cerrar', style: TextStyle(color: Colors.white)),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+
+          // Limpiar los campos del formulario
+          _nombreController.clear();
+          _cedulaController.clear();
+          _telefonoController.clear();
+          _emailController.clear();
+          _codigoProductoController.clear();
+        } catch (e) {
+          print('Error al guardar los datos: $e');
+        }
       }
     }
   }
@@ -90,10 +113,13 @@ class _RegistroColmadoState extends State<RegistroColmado> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => HomePage()), // Asegúrate de tener una HomePage definida
+                MaterialPageRoute(
+                    builder: (context) =>
+                        HomePage()), // Asegúrate de tener una HomePage definida
               );
             },
-            child: Image.asset('assets/logo.png'), // Asegúrate de tener esta imagen en tu carpeta assets
+            child: Image.asset(
+                'assets/logo.png'), // Asegúrate de tener esta imagen en tu carpeta assets
           ),
           onPressed: () {
             // Lógica para ir a la página de inicio
@@ -171,7 +197,8 @@ class _RegistroColmadoState extends State<RegistroColmado> {
               ),
               ListTile(
                 leading: Icon(Icons.gavel, color: Colors.white),
-                title: Text('Base Legal', style: TextStyle(color: Colors.white)),
+                title:
+                    Text('Base Legal', style: TextStyle(color: Colors.white)),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -181,11 +208,13 @@ class _RegistroColmadoState extends State<RegistroColmado> {
               ),
               ListTile(
                 leading: Icon(Icons.calendar_today, color: Colors.white),
-                title: Text('Días del Sorteo', style: TextStyle(color: Colors.white)),
+                title: Text('Días del Sorteo',
+                    style: TextStyle(color: Colors.white)),
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => DiasDelSorteoPage()),
+                    MaterialPageRoute(
+                        builder: (context) => DiasDelSorteoPage()),
                   );
                 },
               ),
@@ -198,7 +227,7 @@ class _RegistroColmadoState extends State<RegistroColmado> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('images/fondo.png'), // Asegúrate de tener esta imagen en tu carpeta assets
+                image: AssetImage('images/fondo.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -215,13 +244,30 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(height: 100), // Espacio para el AppBar
+                        Text(
+                          'Regístrate aquí',
+                          style: TextStyle(
+                            color: Colors.white, // Texto en blanco
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 20),
                         TextFormField(
                           controller: _nombreController,
                           decoration: InputDecoration(
                             labelText: 'Nombre',
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(20),
                             ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color(
+                                      0xFF00CCCC)), // Borde verde agua al enfocar
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            labelStyle: TextStyle(
+                                color: Colors.white), // Texto en blanco
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -237,8 +283,17 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                           decoration: InputDecoration(
                             labelText: 'Cédula',
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(
+                                  20), // Mismo radio de borde que el campo Nombre
                             ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color(
+                                      0xFF00CCCC)), // Borde verde agua al enfocar
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            labelStyle: TextStyle(
+                                color: Colors.white), // Texto en blanco
                           ),
                           validator: (value) {
                             if (value == null || value.length != 11) {
@@ -247,6 +302,7 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                             return null;
                           },
                         ),
+
                         SizedBox(height: 20),
                         TextFormField(
                           controller: _telefonoController,
@@ -254,8 +310,17 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                           decoration: InputDecoration(
                             labelText: 'Número de teléfono',
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(
+                                  20), // Mismo radio de borde que el campo Nombre
                             ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color(
+                                      0xFF00CCCC)), // Borde verde agua al enfocar
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            labelStyle: TextStyle(
+                                color: Colors.white), // Texto en blanco
                           ),
                           validator: (value) {
                             if (value == null || value.length != 10) {
@@ -264,14 +329,24 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                             return null;
                           },
                         ),
+
                         SizedBox(height: 20),
                         TextFormField(
                           controller: _emailController,
                           decoration: InputDecoration(
                             labelText: 'Correo electrónico',
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(
+                                  20), // Mismo radio de borde que el campo Nombre
                             ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color(
+                                      0xFF00CCCC)), // Borde verde agua al enfocar
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            labelStyle: TextStyle(
+                                color: Colors.white), // Texto en blanco
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -280,14 +355,24 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                             return null;
                           },
                         ),
+
                         SizedBox(height: 20),
                         TextFormField(
                           controller: _codigoProductoController,
                           decoration: InputDecoration(
                             labelText: 'Código de producto',
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(
+                                  20), // Mismo radio de borde que el campo Nombre
                             ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color(
+                                      0xFF00CCCC)), // Borde verde agua al enfocar
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            labelStyle: TextStyle(
+                                color: Colors.white), // Texto en blanco
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -296,28 +381,8 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                             return null;
                           },
                         ),
+
                         SizedBox(height: 20),
-                        ElevatedButton(
-                          onPressed: _pickImage,
-                          child: Text('Subir imagen'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue,
-                            fixedSize: Size(200, 50),
-                            elevation: 5,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            shadowColor: Colors.black,
-                          ),
-                        ),
-                        if (_imageBytes != null) ...[
-                          SizedBox(height: 20),
-                          Image.memory(
-                            _imageBytes!,
-                            height: 100,
-                            width: 100,
-                          ),
-                        ],
                         SizedBox(height: 20),
                         ElevatedButton(
                           onPressed: _submitForm,
@@ -332,24 +397,6 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                             shadowColor: Colors.black,
                           ),
                         ),
-                        ElevatedButton(
-  onPressed: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => Dashboard()), // Asegúrate de tener una DashboardPage definida
-    );
-  },
-  child: Text('Ir al Dashboard'),
-  style: ElevatedButton.styleFrom(
-    backgroundColor: Colors.green,
-    fixedSize: Size(200, 50),
-    elevation: 5,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(10),
-    ),
-    shadowColor: Colors.black,
-  ),
-),
                         SizedBox(height: 100),
                       ],
                     ),
@@ -358,54 +405,58 @@ class _RegistroColmadoState extends State<RegistroColmado> {
               ),
             ),
           ),
-        ],
-      ),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.transparent,
-        elevation: 0,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Image.asset(
-                  'assets/logo.png', // Asegúrate de tener esta imagen en tu carpeta assets
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: BottomAppBar(
+              color: Colors.transparent,
+              elevation: 0,
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                       Image.asset(
+                  'images/logo.png', // Asegúrate de tener esta imagen en tu carpeta assets
                   height: 50,
                 ),
                 Row(
                   children: [
                     Image.asset(
-                      'assets/facebook.png', // Asegúrate de tener esta imagen en tu carpeta assets
+                      'images/facebook.png', // Asegúrate de tener esta imagen en tu carpeta assets
                       height: 24,
                       width: 24,
                     ),
                     SizedBox(width: 10),
                     Image.asset(
-                      'assets/instagram.png', // Asegúrate de tener esta imagen en tu carpeta assets
+                      'images/instagram.png', // Asegúrate de tener esta imagen en tu carpeta assets
                       height: 24,
                       width: 24,
                     ),
                     SizedBox(width: 10),
                     Image.asset(
-                      'assets/tiktok.png', // Asegúrate de tener esta imagen en tu carpeta assets
+                      'images/tiktok.png', // Asegúrate de tener esta imagen en tu carpeta assets
                       height: 24,
                       width: 24,
                     ),
                     SizedBox(width: 10),
                     Image.asset(
-                      'assets/youtube.png', // Asegúrate de tener esta imagen en tu carpeta assets
+                      'images/youtube.png', // Asegúrate de tener esta imagen en tu carpeta assets
                       height: 24,
                       width: 24,
                     ),
                   ],
                 ),
-              ],
+                    ],
+                  ),
+                ),
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
 }
-

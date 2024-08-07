@@ -44,6 +44,8 @@ dependencies:
   firebase_database:
   firebase_storage:
   cloud_firestore:
+  beamer: ^1.6.1
+
 
 dev_dependencies:
   flutter_test:
