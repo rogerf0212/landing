@@ -45,6 +45,7 @@ dependencies:
   firebase_storage:
   cloud_firestore:
   beamer: ^1.6.1
+  excel:
 
 
 dev_dependencies:

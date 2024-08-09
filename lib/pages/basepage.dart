@@ -6,6 +6,8 @@ import 'package:landing/pages/mecpage.dart';
 class BaseLegalPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final isWideScreen = MediaQuery.of(context).size.width > 600;
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -16,17 +18,17 @@ class BaseLegalPage extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => HomePage()), // Asegúrate de tener una HomePage definida
+                MaterialPageRoute(builder: (context) => HomePage()),
               );
             },
-            child: Image.asset('assets/logo.png'), // Asegúrate de tener esta imagen en tu carpeta assets
+            child: Image.asset('assets/logo.png'),
           ),
           onPressed: () {
             // Lógica para ir a la página de inicio
           },
         ),
         actions: [
-          if (MediaQuery.of(context).size.width > 600) ...[
+          if (isWideScreen) ...[
             TextButton(
               onPressed: () {
                 Navigator.push(
@@ -80,11 +82,10 @@ class BaseLegalPage extends StatelessWidget {
       ),
       endDrawer: Drawer(
         child: Container(
-          color: Colors.lightBlue, // Fondo azul claro
+          color: Colors.lightBlue,
           child: ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
-              // Eliminamos el DrawerHeader y la línea divisoria
               ListTile(
                 leading: Icon(Icons.info, color: Colors.white),
                 title: Text('Mecánica', style: TextStyle(color: Colors.white)),
@@ -122,7 +123,7 @@ class BaseLegalPage extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('images/fondo.png'), // Asegúrate de tener esta imagen en tu carpeta assets
+            image: AssetImage(isWideScreen ? 'images/fondo.png' : 'images/fondom.jpg'),
             fit: BoxFit.cover,
           ),
         ),
@@ -130,4 +131,3 @@ class BaseLegalPage extends StatelessWidget {
     );
   }
 }
-

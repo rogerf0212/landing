@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:landing/pages/colreg.dart';
 import 'package:landing/pages/dash.dart';
+import 'package:landing/pages/dashboard_screan.dart';
 import 'package:landing/pages/supreg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:beamer/beamer.dart';
@@ -23,7 +24,7 @@ class LandingLocation extends BeamLocation<BeamState> {
         const BeamPage(
           key: ValueKey('dashboard'),
           title: 'dashboard',
-          child: DashboardPage(),
+          child: DashboardScreen(),
         ),
     ];
     final String? landingIdParameter = state.pathParameters['landingId'];
@@ -31,7 +32,7 @@ class LandingLocation extends BeamLocation<BeamState> {
       final landingId = int.tryParse(landingIdParameter);
       pages.add(
         BeamPage(
-          child: DashboardPage(),
+          child: DashboardScreen(),
         ),
       );
     }
@@ -41,7 +42,7 @@ class LandingLocation extends BeamLocation<BeamState> {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp(
+  await Firebase.initializeApp(
   options: const FirebaseOptions(
   apiKey: "AIzaSyBn1l8EL2fFJ9BrancAttotBlu5dCoor_A",
   authDomain: "landing-7f255.firebaseapp.com",

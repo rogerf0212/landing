@@ -398,26 +398,6 @@ class _RegistroSupermercadoState extends State<RegistroSupermercado>{
                             shadowColor: Colors.black,
                           ),
                         ),
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      DashboardPage()), // Asegúrate de tener una DashboardPage definida
-                            );
-                          },
-                          child: Text('Ir al Dashboard'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.green,
-                            fixedSize: Size(200, 50),
-                            elevation: 5,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            shadowColor: Colors.black,
-                          ),
-                        ),
                         SizedBox(height: 100),
                       ],
                     ),
