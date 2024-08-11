@@ -119,7 +119,7 @@ class _RegistroColmadoState extends State<RegistroColmado> {
               );
             },
             child: Image.asset(
-                'assets/logo.png'), // Asegúrate de tener esta imagen en tu carpeta assets
+                'images/logo.png'), // Asegúrate de tener esta imagen en tu carpeta assets
           ),
           onPressed: () {
             // Lógica para ir a la página de inicio
@@ -254,28 +254,35 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                         ),
                         SizedBox(height: 20),
                         TextFormField(
-                          controller: _nombreController,
-                          decoration: InputDecoration(
-                            labelText: 'Nombre',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color(
-                                      0xFF00CCCC)), // Borde verde agua al enfocar
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            labelStyle: TextStyle(
-                                color: Colors.white), // Texto en blanco
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Por favor ingrese su nombre';
-                            }
-                            return null;
-                          },
-                        ),
+  controller: _nombreController,
+  decoration: InputDecoration(
+    labelText: 'Nombre',
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(20),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: Colors.black,
+      ),
+      borderRadius: BorderRadius.circular(20),
+    ),
+    labelStyle: TextStyle(
+      color: Colors.black,
+    ),
+    fillColor: Colors.white, // Fondo blanco
+    filled: true, // Habilita el fondo blanco
+    hintStyle: TextStyle(
+      color: Colors.grey, // Color de texto gris
+    ),
+  ),
+  validator: (value) {
+    if (value == null || value.isEmpty) {
+      return 'Por favor ingrese su nombre';
+    }
+    return null;
+  },
+),
+
                         SizedBox(height: 20),
                         TextFormField(
                           controller: _cedulaController,
@@ -288,12 +295,16 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Color(
-                                      0xFF00CCCC)), // Borde verde agua al enfocar
+                                  color: Colors.black), // Borde verde agua al enfocar
                               borderRadius: BorderRadius.circular(20),
                             ),
                             labelStyle: TextStyle(
-                                color: Colors.white), // Texto en blanco
+                                color: Colors.black),
+                                  fillColor: Colors.white, // Fondo blanco
+    filled: true, // Habilita el fondo blanco
+    hintStyle: TextStyle(
+      color: Colors.grey, // Color de texto gris
+    ), // Texto en blanco
                           ),
                           validator: (value) {
                             if (value == null || value.length != 11) {
@@ -315,12 +326,16 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Color(
-                                      0xFF00CCCC)), // Borde verde agua al enfocar
+                                  color: Colors.black), // Borde verde agua al enfocar
                               borderRadius: BorderRadius.circular(20),
                             ),
                             labelStyle: TextStyle(
-                                color: Colors.white), // Texto en blanco
+                                color: Colors.black),
+                                  fillColor: Colors.white, // Fondo blanco
+    filled: true, // Habilita el fondo blanco
+    hintStyle: TextStyle(
+      color: Colors.grey, // Color de texto gris
+    ), // Texto en blanco
                           ),
                           validator: (value) {
                             if (value == null || value.length != 10) {
@@ -341,12 +356,16 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Color(
-                                      0xFF00CCCC)), // Borde verde agua al enfocar
+                                  color: Colors.black), // Borde verde agua al enfocar
                               borderRadius: BorderRadius.circular(20),
                             ),
                             labelStyle: TextStyle(
-                                color: Colors.white), // Texto en blanco
+                                color: Colors.black), // Texto en blanco
+                                  fillColor: Colors.white, // Fondo blanco
+    filled: true, // Habilita el fondo blanco
+    hintStyle: TextStyle(
+      color: Colors.grey, // Color de texto gris
+    ),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -367,12 +386,16 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Color(
-                                      0xFF00CCCC)), // Borde verde agua al enfocar
+                                  color: Colors.black), // Borde verde agua al enfocar
                               borderRadius: BorderRadius.circular(20),
                             ),
                             labelStyle: TextStyle(
-                                color: Colors.white), // Texto en blanco
+                                color: Colors.black), // Texto en blanco
+                                  fillColor: Colors.white, // Fondo blanco
+    filled: true, // Habilita el fondo blanco
+    hintStyle: TextStyle(
+      color: Colors.grey, // Color de texto gris
+    ),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
