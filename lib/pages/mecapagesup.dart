@@ -139,7 +139,7 @@ class MecanicasupPage extends StatelessWidget {
       Text(
         'Promo en supermercados',
         style: TextStyle(
-          fontSize: 34,
+fontSize: MediaQuery.of(context).size.width < 600 ? 16 : 36,       
           fontWeight: FontWeight.bold,
           color: Colors.white,
         ),
@@ -148,7 +148,7 @@ class MecanicasupPage extends StatelessWidget {
       Text(
         'Premios',
         style: TextStyle(
-          fontSize: 30,
+fontSize: MediaQuery.of(context).size.width < 600 ? 16 : 36,       
           fontWeight: FontWeight.bold,
           color: Colors.white,
         ),
@@ -157,17 +157,21 @@ class MecanicasupPage extends StatelessWidget {
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('-Bonos de compra en supermercados', style: TextStyle(color: Colors.white)),
-          Text('-Canasta de productos induveca', style: TextStyle(color: Colors.white)),
-          Text('-Laptops y tablets', style: TextStyle(color: Colors.white)),
-          Text('-Tablets', style: TextStyle(color: Colors.white)),
+          Text('-Bonos de compra en supermercados', style: TextStyle(color: Colors.white, fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,       
+), ),
+          Text('-Canasta de productos induveca', style: TextStyle(color: Colors.white, fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,       
+)),
+          Text('-Laptops y tablets', style: TextStyle(color: Colors.white, fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,       
+)),
+          Text('-Tablets', style: TextStyle(color: Colors.white, fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,       
+)),
         ],
       ),
       SizedBox(height: 16),
       Text(
         'No te pierdas la oportunidad de ganar estos\ny increíbles premios comenzar el regreso\ny a clases con todo lo que necesitas\ny gracias a Santal.',
         style: TextStyle(
-          fontSize: 16,
+fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,       
           color: Colors.white,
         ),
         textAlign: TextAlign.left, // Alineación a la izquierda
@@ -176,7 +180,7 @@ class MecanicasupPage extends StatelessWidget {
       Text(
         'Pasos para participar:',
         style: TextStyle(
-          fontSize: 30,
+fontSize: MediaQuery.of(context).size.width < 600 ? 16 : 36,       
           fontWeight: FontWeight.bold,
           color: Colors.white,
         ),
@@ -188,7 +192,8 @@ class MecanicasupPage extends StatelessWidget {
           SizedBox(width: 8),
           Text(
             'Adquiere cualquier sabor y formato de la marca Santal',
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.white, fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,       
+),
           ),
         ],
       ),
@@ -199,7 +204,7 @@ class MecanicasupPage extends StatelessWidget {
           SizedBox(width: 8),
           Text(
             'Entra a nuestra pagina web\ny promosantal.com y registra el codigo\ny del producto',
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.white, fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,),
           ),
         ],
       ),
@@ -210,7 +215,7 @@ class MecanicasupPage extends StatelessWidget {
           SizedBox(width: 8),
           Text(
             'Conserva el empaque de tu producto ya\ny que sera necesario si resultas ganador.',
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.white, fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,),
           ),
         ],
       ),
@@ -221,7 +226,7 @@ class MecanicasupPage extends StatelessWidget {
           SizedBox(width: 8),
           Text(
             'Preparate para ser uno de los proximos\ny ganadores!',
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.white, fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,),
           ),
         ],
       ),

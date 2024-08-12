@@ -146,7 +146,7 @@ class MecanicaPage extends StatelessWidget {
       Text(
         'Promo en colmados',
         style: TextStyle(
-        fontSize: MediaQuery.of(context).size.width < 600 ? 20 : 36,
+        fontSize: MediaQuery.of(context).size.width < 600 ? 16 : 36,
           fontWeight: FontWeight.bold,
           color: Colors.white,
         ),
@@ -155,7 +155,8 @@ class MecanicaPage extends StatelessWidget {
       Text(
         'Premios',
         style: TextStyle(
-fontSize: MediaQuery.of(context).size.width < 600 ? 20 : 36,          fontWeight: FontWeight.bold,
+fontSize: MediaQuery.of(context).size.width < 600 ? 16 : 36,       
+   fontWeight: FontWeight.bold,
           color: Colors.white,
         ),
       ),
@@ -183,7 +184,7 @@ fontSize: MediaQuery.of(context).size.width < 600 ? 20 : 36,          fontWeight
       Text(
         'Pasos para participar:',
         style: TextStyle(
-fontSize: MediaQuery.of(context).size.width < 600 ? 20 : 36,          fontWeight: FontWeight.bold,
+fontSize: MediaQuery.of(context).size.width < 600 ? 16 : 36,          fontWeight: FontWeight.bold,
           color: Colors.white,
         ),
       ),
