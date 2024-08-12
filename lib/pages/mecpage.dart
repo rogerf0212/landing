@@ -146,7 +146,7 @@ class MecanicaPage extends StatelessWidget {
       Text(
         'Promo en colmados',
         style: TextStyle(
-        fontSize: MediaQuery.of(context).size.width < 600 ? 24 : 36,
+        fontSize: MediaQuery.of(context).size.width < 600 ? 20 : 36,
           fontWeight: FontWeight.bold,
           color: Colors.white,
         ),
@@ -155,7 +155,7 @@ class MecanicaPage extends StatelessWidget {
       Text(
         'Premios',
         style: TextStyle(
-fontSize: MediaQuery.of(context).size.width < 600 ? 24 : 36,          fontWeight: FontWeight.bold,
+fontSize: MediaQuery.of(context).size.width < 600 ? 20 : 36,          fontWeight: FontWeight.bold,
           color: Colors.white,
         ),
       ),
@@ -164,17 +164,17 @@ fontSize: MediaQuery.of(context).size.width < 600 ? 24 : 36,          fontWeight
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('- Bonos de compra en supermercados', style: TextStyle(color: Colors.white, fontSize: MediaQuery.of(context).size.width < 600 ? 10 : 16,), ),
-          Text('- Canasta de productos induveca', style: TextStyle(color: Colors.white, fontSize: MediaQuery.of(context).size.width < 600 ? 10 : 16,)),
-          Text('- Laptops y tablets', style: TextStyle(color: Colors.white, fontSize: MediaQuery.of(context).size.width < 600 ? 10 : 16,)),
-          Text('- Tablets', style: TextStyle(color: Colors.white, fontSize: MediaQuery.of(context).size.width < 600 ? 10 : 16,)),
+          Text('- Bonos de compra en supermercados', style: TextStyle(color: Colors.white, fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,), ),
+          Text('- Canasta de productos induveca', style: TextStyle(color: Colors.white, fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,)),
+          Text('- Laptops y tablets', style: TextStyle(color: Colors.white, fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,)),
+          Text('- Tablets', style: TextStyle(color: Colors.white, fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,)),
         ],
       ),
       SizedBox(height: 16),
       Text(
         'No te pierdas la oportunidad de ganar estos\ny increíbles premios para el regreso a clases\ny con todo lo que necesitas gracias a Santal.',
         style: TextStyle(
-              fontSize: MediaQuery.of(context).size.width < 600 ? 10 : 16,
+              fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,
           color: Colors.white,
         ),
         textAlign: TextAlign.left,
@@ -183,7 +183,7 @@ fontSize: MediaQuery.of(context).size.width < 600 ? 24 : 36,          fontWeight
       Text(
         'Pasos para participar:',
         style: TextStyle(
-fontSize: MediaQuery.of(context).size.width < 600 ? 24 : 36,          fontWeight: FontWeight.bold,
+fontSize: MediaQuery.of(context).size.width < 600 ? 20 : 36,          fontWeight: FontWeight.bold,
           color: Colors.white,
         ),
       ),
@@ -197,7 +197,7 @@ fontSize: MediaQuery.of(context).size.width < 600 ? 24 : 36,          fontWeight
             'Adquiere cualquier sabor y formato de la marca Santal',
             style: TextStyle(
               color: Colors.white,
-              fontSize: MediaQuery.of(context).size.width < 600 ? 10 : 16,
+              fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,
             ),
           ),
         ],
@@ -211,7 +211,7 @@ fontSize: MediaQuery.of(context).size.width < 600 ? 24 : 36,          fontWeight
             'Entra a nuestra página web y promosantal.com y registra\ny el código del producto',
             style: TextStyle(
               color: Colors.white,
-              fontSize: MediaQuery.of(context).size.width < 600 ? 10 : 16,
+              fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,
             ),
           ),
         ],
@@ -225,7 +225,7 @@ fontSize: MediaQuery.of(context).size.width < 600 ? 24 : 36,          fontWeight
             'Conserva el empaque de tu producto, ya que\ny será necesario si resultas ganador',
             style: TextStyle(
               color: Colors.white,
-              fontSize: MediaQuery.of(context).size.width < 600 ? 10 : 16,
+              fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,
             ),
           ),
         ],
@@ -239,7 +239,7 @@ fontSize: MediaQuery.of(context).size.width < 600 ? 24 : 36,          fontWeight
             'Prepárate para ser uno de los próximos ganadores',
             style: TextStyle(
               color: Colors.white,
-              fontSize: MediaQuery.of(context).size.width < 600 ? 10 : 16,
+              fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,
             ),
           ),
         ],
