@@ -13,8 +13,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
   bool isExpanded = false;
   int _selectedIndex = 0;
 
-  
-
   Future<void> _realizarSorteo() async {
     final registrosSnapshot =
         await FirebaseFirestore.instance.collection('registros').get();
@@ -29,8 +27,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
     do {
       winner = registros[random.nextInt(registros.length)];
-    } while (ganadores.any((ganador) =>
-        ganador['codigoProducto'] == winner!['codigoProducto']));
+    } while (ganadores.any(
+        (ganador) => ganador['codigoProducto'] == winner!['codigoProducto']));
 
     showDialog(
       context: context,
@@ -52,17 +50,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
           actions: [
             TextButton(
               onPressed: () async {
-  // Guardar el ganador en la colección "ganadores"
-  final ganadorData = {
-    'nombre': winner!['nombre'],
-    'cedula': winner!['cedula'],
-    'telefono': winner!['telefono'],
-    'email': winner!['email'],
-    'codigoProducto': winner!['codigoProducto'],
-    'realizoCompra': winner!['realizoCompra'],
-  };
+                // Guardar el ganador en la colección "ganadores"
+                final ganadorData = {
+                  'nombre': winner!['nombre'],
+                  'cedula': winner!['cedula'],
+                  'telefono': winner!['telefono'],
+                  'email': winner!['email'],
+                  'codigoProducto': winner!['codigoProducto'],
+                  'realizoCompra': winner!['realizoCompra'],
+                };
 
-  await FirebaseFirestore.instance.collection('ganadores').add(ganadorData);
+                await FirebaseFirestore.instance
+                    .collection('ganadores')
+                    .add(ganadorData);
                 Navigator.of(context).pop();
                 // Guardar el ganador en la colección "ganadores"
                 // (código para guardar el ganador aquí)
@@ -93,7 +93,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
               NavigationRailDestination(
                 icon: Icon(Icons.person_add),
-                label: Text("Registros", textAlign: TextAlign.left), // Alinea el texto a la izquierda
+                label: Text("Registros",
+                    textAlign:
+                        TextAlign.left), // Alinea el texto a la izquierda
               ),
               NavigationRailDestination(
                 icon: Icon(Icons.sort),
@@ -154,10 +156,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                         .collection('registros')
                                         .snapshots(),
                                     builder: (BuildContext context,
-                                        AsyncSnapshot<QuerySnapshot>
-                                            snapshot) {
+                                        AsyncSnapshot<QuerySnapshot> snapshot) {
                                       if (snapshot.hasError) {
-                                        return Text('Error al cargar los datos');
+                                        return Text(
+                                            'Error al cargar los datos');
                                       }
                                       if (snapshot.connectionState ==
                                           ConnectionState.waiting) {
@@ -198,10 +200,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                         .collection('ganadores')
                                         .snapshots(),
                                     builder: (BuildContext context,
-                                        AsyncSnapshot<QuerySnapshot>
-                                            snapshot) {
+                                        AsyncSnapshot<QuerySnapshot> snapshot) {
                                       if (snapshot.hasError) {
-                                        return Text('Error al cargar los datos');
+                                        return Text(
+                                            'Error al cargar los datos');
                                       }
                                       if (snapshot.connectionState ==
                                           ConnectionState.waiting) {
@@ -225,7 +227,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         ),
                       ],
                     ),
-                     SizedBox(height: 20.0),
+                    SizedBox(height: 20.0),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -243,101 +245,117 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         ),
                       ],
                     ),
-                    if (_selectedIndex == 1) 
-  Padding(
-    padding: const EdgeInsets.all(16.0),
-    child: StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection('registros').snapshots(),
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return Text('Error al cargar los datos');
-        }
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text('Cargando...');
-        }
+                    if (_selectedIndex == 1)
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: StreamBuilder<QuerySnapshot>(
+                          stream: FirebaseFirestore.instance
+                              .collection('registros')
+                              .snapshots(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (snapshot.hasError) {
+                              return Text('Error al cargar los datos');
+                            }
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return Text('Cargando...');
+                            }
 
-        final entries = snapshot.data?.docs ?? [];
+                            final entries = snapshot.data?.docs ?? [];
 
-        return DataTable(
-          headingRowColor: MaterialStateColor.resolveWith((states) => Colors.grey), // Color de fondo de la fila de títulos
-          dataRowColor: MaterialStateColor.resolveWith((states) => Colors.white), // Color de fondo de las filas de datos
-          columns: [
-            DataColumn(label: Text("Nombre")),
-            DataColumn(label: Text("Cédula")),
-            DataColumn(label: Text("Teléfono")),
-            DataColumn(label: Text("Email")),
-            DataColumn(label: Text("Producto")),
-            DataColumn(label: Text("Establecimiento")),
-          ],
-          rows: entries.map((entry) {
-            final nombre = entry['nombre'] ?? '';
-            final cedula = entry['cedula'] ?? '';
-            final telefono = entry['telefono'] ?? '';
-            final email = entry['email'] ?? '';
-            final producto = entry['codigoProducto'] ?? '';
-            final establecimiento = entry['realizoCompra'] ?? '';
+                            return DataTable(
+                              headingRowColor: MaterialStateColor.resolveWith(
+                                  (states) => Colors
+                                      .grey), // Color de fondo de la fila de títulos
+                              dataRowColor: MaterialStateColor.resolveWith(
+                                  (states) => Colors
+                                      .white), // Color de fondo de las filas de datos
+                              columns: [
+                                DataColumn(label: Text("Nombre")),
+                                DataColumn(label: Text("Cédula")),
+                                DataColumn(label: Text("Teléfono")),
+                                DataColumn(label: Text("Email")),
+                                DataColumn(label: Text("Producto")),
+                                DataColumn(label: Text("Establecimiento")),
+                              ],
+                              rows: entries.map((entry) {
+                                final nombre = entry['nombre'] ?? '';
+                                final cedula = entry['cedula'] ?? '';
+                                final telefono = entry['telefono'] ?? '';
+                                final email = entry['email'] ?? '';
+                                final producto = entry['codigoProducto'] ?? '';
+                                final establecimiento =
+                                    entry['realizoCompra'] ?? '';
 
-            return DataRow(cells: [
-              DataCell(Text(nombre)),
-              DataCell(Text(cedula)),
-              DataCell(Text(telefono)),
-              DataCell(Text(email)),
-              DataCell(Text(producto)),
-              DataCell(Text(establecimiento)),
-            ]);
-          }).toList(),
-        );
-      },
-    ),
-  ),
-  if (_selectedIndex == 3) 
-   Padding(
-    padding: const EdgeInsets.all(16.0),
-    child: StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection('ganadores').snapshots(),
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return Text('Error al cargar los datos');
-        }
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text('Cargando...');
-        }
+                                return DataRow(cells: [
+                                  DataCell(Text(nombre)),
+                                  DataCell(Text(cedula)),
+                                  DataCell(Text(telefono)),
+                                  DataCell(Text(email)),
+                                  DataCell(Text(producto)),
+                                  DataCell(Text(establecimiento)),
+                                ]);
+                              }).toList(),
+                            );
+                          },
+                        ),
+                      ),
+                    if (_selectedIndex == 3)
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: StreamBuilder<QuerySnapshot>(
+                          stream: FirebaseFirestore.instance
+                              .collection('ganadores')
+                              .snapshots(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (snapshot.hasError) {
+                              return Text('Error al cargar los datos');
+                            }
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return Text('Cargando...');
+                            }
 
-        final winners = snapshot.data?.docs ?? [];
+                            final winners = snapshot.data?.docs ?? [];
 
-        return DataTable(
-          headingRowColor: MaterialStateColor.resolveWith((states) => Colors.grey),
-          dataRowColor: MaterialStateColor.resolveWith((states) => Colors.white),
-          columns: [
-            DataColumn(label: Text("Nombre")),
-            DataColumn(label: Text("Cédula")),
-            DataColumn(label: Text("Teléfono")),
-            DataColumn(label: Text("Email")),
-            DataColumn(label: Text("Producto")),
-            DataColumn(label: Text("Establecimiento")),
-          ],
-          rows: winners.map((winner) {
-            final nombre = winner['nombre'] ?? '';
-            final cedula = winner['cedula'] ?? '';
-            final telefono = winner['telefono'] ?? '';
-            final email = winner['email'] ?? '';
-            final producto = winner['codigoProducto'] ?? '';
-            final establecimiento = winner['realizoCompra'] ?? '';
+                            return DataTable(
+                              headingRowColor: MaterialStateColor.resolveWith(
+                                  (states) => Colors.grey),
+                              dataRowColor: MaterialStateColor.resolveWith(
+                                  (states) => Colors.white),
+                              columns: [
+                                DataColumn(label: Text("Nombre")),
+                                DataColumn(label: Text("Cédula")),
+                                DataColumn(label: Text("Teléfono")),
+                                DataColumn(label: Text("Email")),
+                                DataColumn(label: Text("Producto")),
+                                DataColumn(label: Text("Establecimiento")),
+                              ],
+                              rows: winners.map((winner) {
+                                final nombre = winner['nombre'] ?? '';
+                                final cedula = winner['cedula'] ?? '';
+                                final telefono = winner['telefono'] ?? '';
+                                final email = winner['email'] ?? '';
+                                final producto = winner['codigoProducto'] ?? '';
+                                final establecimiento =
+                                    winner['realizoCompra'] ?? '';
 
-            return DataRow(cells: [
-              DataCell(Text(nombre)),
-              DataCell(Text(cedula)),
-              DataCell(Text(telefono)),
-              DataCell(Text(email)),
-              DataCell(Text(producto)),
-              DataCell(Text(establecimiento)),
-            ]);
-          }).toList(),
-        );
-      },
-    ),
-  ),
-  if (_selectedIndex == 2) // Pestaña "Sorteo"
+                                return DataRow(cells: [
+                                  DataCell(Text(nombre)),
+                                  DataCell(Text(cedula)),
+                                  DataCell(Text(telefono)),
+                                  DataCell(Text(email)),
+                                  DataCell(Text(producto)),
+                                  DataCell(Text(establecimiento)),
+                                ]);
+                              }).toList(),
+                            );
+                          },
+                        ),
+                      ),
+                    if (_selectedIndex == 2) // Pestaña "Sorteo"
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Column(
@@ -357,9 +375,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           ],
                         ),
                       ),
-
-  
-
                   ],
                 ),
               ),

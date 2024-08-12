@@ -119,7 +119,8 @@ class _RegistroColmadoState extends State<RegistroColmado> {
               );
             },
             child: Image.asset(
-                'images/logo.png'), // Asegúrate de tener esta imagen en tu carpeta assets
+              'images/logo2.png',
+            ), // Asegúrate de tener esta imagen en tu carpeta assets
           ),
           onPressed: () {
             // Lógica para ir a la página de inicio
@@ -227,7 +228,7 @@ class _RegistroColmadoState extends State<RegistroColmado> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('images/fondo.png'),
+                image: AssetImage('images/fondo7.jpg'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -237,7 +238,7 @@ class _RegistroColmadoState extends State<RegistroColmado> {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Container(
-                  width: 300,
+                  width: 250,
                   child: Form(
                     key: _formKey,
                     child: Column(
@@ -254,34 +255,34 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                         ),
                         SizedBox(height: 20),
                         TextFormField(
-  controller: _nombreController,
-  decoration: InputDecoration(
-    labelText: 'Nombre',
-    border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(20),
-    ),
-    focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(
-        color: Colors.black,
-      ),
-      borderRadius: BorderRadius.circular(20),
-    ),
-    labelStyle: TextStyle(
-      color: Colors.black,
-    ),
-    fillColor: Colors.white, // Fondo blanco
-    filled: true, // Habilita el fondo blanco
-    hintStyle: TextStyle(
-      color: Colors.grey, // Color de texto gris
-    ),
-  ),
-  validator: (value) {
-    if (value == null || value.isEmpty) {
-      return 'Por favor ingrese su nombre';
-    }
-    return null;
-  },
-),
+                          controller: _nombreController,
+                          decoration: InputDecoration(
+                            labelText: 'Nombre',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.black,
+                              ),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            labelStyle: TextStyle(
+                              color: Colors.black,
+                            ),
+                            fillColor: Colors.white, // Fondo blanco
+                            filled: true, // Habilita el fondo blanco
+                            hintStyle: TextStyle(
+                              color: Colors.grey, // Color de texto gris
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Por favor ingrese su nombre';
+                            }
+                            return null;
+                          },
+                        ),
 
                         SizedBox(height: 20),
                         TextFormField(
@@ -295,16 +296,16 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Colors.black), // Borde verde agua al enfocar
+                                  color: Colors
+                                      .black), // Borde verde agua al enfocar
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            labelStyle: TextStyle(
-                                color: Colors.black),
-                                  fillColor: Colors.white, // Fondo blanco
-    filled: true, // Habilita el fondo blanco
-    hintStyle: TextStyle(
-      color: Colors.grey, // Color de texto gris
-    ), // Texto en blanco
+                            labelStyle: TextStyle(color: Colors.black),
+                            fillColor: Colors.white, // Fondo blanco
+                            filled: true, // Habilita el fondo blanco
+                            hintStyle: TextStyle(
+                              color: Colors.grey, // Color de texto gris
+                            ), // Texto en blanco
                           ),
                           validator: (value) {
                             if (value == null || value.length != 11) {
@@ -326,16 +327,16 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Colors.black), // Borde verde agua al enfocar
+                                  color: Colors
+                                      .black), // Borde verde agua al enfocar
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            labelStyle: TextStyle(
-                                color: Colors.black),
-                                  fillColor: Colors.white, // Fondo blanco
-    filled: true, // Habilita el fondo blanco
-    hintStyle: TextStyle(
-      color: Colors.grey, // Color de texto gris
-    ), // Texto en blanco
+                            labelStyle: TextStyle(color: Colors.black),
+                            fillColor: Colors.white, // Fondo blanco
+                            filled: true, // Habilita el fondo blanco
+                            hintStyle: TextStyle(
+                              color: Colors.grey, // Color de texto gris
+                            ), // Texto en blanco
                           ),
                           validator: (value) {
                             if (value == null || value.length != 10) {
@@ -356,16 +357,17 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Colors.black), // Borde verde agua al enfocar
+                                  color: Colors
+                                      .black), // Borde verde agua al enfocar
                               borderRadius: BorderRadius.circular(20),
                             ),
                             labelStyle: TextStyle(
                                 color: Colors.black), // Texto en blanco
-                                  fillColor: Colors.white, // Fondo blanco
-    filled: true, // Habilita el fondo blanco
-    hintStyle: TextStyle(
-      color: Colors.grey, // Color de texto gris
-    ),
+                            fillColor: Colors.white, // Fondo blanco
+                            filled: true, // Habilita el fondo blanco
+                            hintStyle: TextStyle(
+                              color: Colors.grey, // Color de texto gris
+                            ),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -386,16 +388,17 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Colors.black), // Borde verde agua al enfocar
+                                  color: Colors
+                                      .black), // Borde verde agua al enfocar
                               borderRadius: BorderRadius.circular(20),
                             ),
                             labelStyle: TextStyle(
                                 color: Colors.black), // Texto en blanco
-                                  fillColor: Colors.white, // Fondo blanco
-    filled: true, // Habilita el fondo blanco
-    hintStyle: TextStyle(
-      color: Colors.grey, // Color de texto gris
-    ),
+                            fillColor: Colors.white, // Fondo blanco
+                            filled: true, // Habilita el fondo blanco
+                            hintStyle: TextStyle(
+                              color: Colors.grey, // Color de texto gris
+                            ),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -409,9 +412,12 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                         SizedBox(height: 20),
                         ElevatedButton(
                           onPressed: _submitForm,
-                          child: Text('Enviar'),
+                          child: Text(
+                            'Registrate YA!!!',
+                            style: TextStyle(color: Colors.white),
+                          ),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue,
+                            backgroundColor: Color(0xFF93E9BE),
                             fixedSize: Size(200, 50),
                             elevation: 5,
                             shape: RoundedRectangleBorder(
@@ -441,37 +447,37 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                       Image.asset(
-                  'images/logo.png', // Asegúrate de tener esta imagen en tu carpeta assets
-                  height: 50,
-                ),
-                Row(
-                  children: [
-                    Image.asset(
-                      'images/facebook.png', // Asegúrate de tener esta imagen en tu carpeta assets
-                      height: 24,
-                      width: 24,
-                    ),
-                    SizedBox(width: 10),
-                    Image.asset(
-                      'images/instagram.png', // Asegúrate de tener esta imagen en tu carpeta assets
-                      height: 24,
-                      width: 24,
-                    ),
-                    SizedBox(width: 10),
-                    Image.asset(
-                      'images/tiktok.png', // Asegúrate de tener esta imagen en tu carpeta assets
-                      height: 24,
-                      width: 24,
-                    ),
-                    SizedBox(width: 10),
-                    Image.asset(
-                      'images/youtube.png', // Asegúrate de tener esta imagen en tu carpeta assets
-                      height: 24,
-                      width: 24,
-                    ),
-                  ],
-                ),
+                      Image.asset(
+                        'images/logo.png', // Asegúrate de tener esta imagen en tu carpeta assets
+                        height: 50,
+                      ),
+                      Row(
+                        children: [
+                          Image.asset(
+                            'images/facebook.png', // Asegúrate de tener esta imagen en tu carpeta assets
+                            height: 24,
+                            width: 24,
+                          ),
+                          SizedBox(width: 10),
+                          Image.asset(
+                            'images/instagram.png', // Asegúrate de tener esta imagen en tu carpeta assets
+                            height: 24,
+                            width: 24,
+                          ),
+                          SizedBox(width: 10),
+                          Image.asset(
+                            'images/tiktok.png', // Asegúrate de tener esta imagen en tu carpeta assets
+                            height: 24,
+                            width: 24,
+                          ),
+                          SizedBox(width: 10),
+                          Image.asset(
+                            'images/youtube.png', // Asegúrate de tener esta imagen en tu carpeta assets
+                            height: 24,
+                            width: 24,
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),

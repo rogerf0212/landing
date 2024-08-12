@@ -7,16 +7,16 @@ import 'package:landing/pages/dash.dart';
 import 'package:landing/pages/colmado.dart';
 import 'package:landing/pages/basepage.dart';
 import 'package:landing/pages/diasort.dart';
+import 'package:landing/pages/mecapagesup.dart';
 import 'package:landing/pages/mecpage.dart';
 
-
-class RegistroSupermercado extends StatefulWidget{
+class RegistroSupermercado extends StatefulWidget {
   @override
- _RegistroSupermercadoState createState() => _RegistroSupermercadoState();
+  _RegistroSupermercadoState createState() => _RegistroSupermercadoState();
 }
 
-class _RegistroSupermercadoState extends State<RegistroSupermercado>{
-   final _formKey = GlobalKey<FormState>();
+class _RegistroSupermercadoState extends State<RegistroSupermercado> {
+  final _formKey = GlobalKey<FormState>();
   final _nombreController = TextEditingController();
   final _cedulaController = TextEditingController();
   final _telefonoController = TextEditingController();
@@ -131,7 +131,7 @@ class _RegistroSupermercadoState extends State<RegistroSupermercado>{
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => MecanicaPage()),
+                  MaterialPageRoute(builder: (context) => MecanicasupPage()),
                 );
               },
               child: Text(
@@ -191,7 +191,7 @@ class _RegistroSupermercadoState extends State<RegistroSupermercado>{
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => MecanicaPage()),
+                    MaterialPageRoute(builder: (context) => MecanicasupPage()),
                   );
                 },
               ),
@@ -227,8 +227,7 @@ class _RegistroSupermercadoState extends State<RegistroSupermercado>{
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(
-                    'images/fondo.png'), // Asegúrate de tener esta imagen en tu carpeta assets
+                image: AssetImage('images/fond.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -238,7 +237,7 @@ class _RegistroSupermercadoState extends State<RegistroSupermercado>{
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Container(
-                  width: 300,
+                  width: 250,
                   child: Form(
                     key: _formKey,
                     child: Column(
@@ -263,12 +262,18 @@ class _RegistroSupermercadoState extends State<RegistroSupermercado>{
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Color(
-                                      0xFF00CCCC)), // Borde verde agua al enfocar
+                                color: Colors.black,
+                              ),
                               borderRadius: BorderRadius.circular(20),
                             ),
                             labelStyle: TextStyle(
-                                color: Colors.white), // Texto en blanco
+                              color: Colors.black,
+                            ),
+                            fillColor: Colors.white, // Fondo blanco
+                            filled: true, // Habilita el fondo blanco
+                            hintStyle: TextStyle(
+                              color: Colors.grey, // Color de texto gris
+                            ),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -277,6 +282,7 @@ class _RegistroSupermercadoState extends State<RegistroSupermercado>{
                             return null;
                           },
                         ),
+
                         SizedBox(height: 20),
                         TextFormField(
                           controller: _cedulaController,
@@ -289,12 +295,16 @@ class _RegistroSupermercadoState extends State<RegistroSupermercado>{
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Color(
-                                      0xFF00CCCC)), // Borde verde agua al enfocar
+                                  color: Colors
+                                      .black), // Borde verde agua al enfocar
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            labelStyle: TextStyle(
-                                color: Colors.white), // Texto en blanco
+                            labelStyle: TextStyle(color: Colors.black),
+                            fillColor: Colors.white, // Fondo blanco
+                            filled: true, // Habilita el fondo blanco
+                            hintStyle: TextStyle(
+                              color: Colors.grey, // Color de texto gris
+                            ), // Texto en blanco
                           ),
                           validator: (value) {
                             if (value == null || value.length != 11) {
@@ -316,12 +326,16 @@ class _RegistroSupermercadoState extends State<RegistroSupermercado>{
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Color(
-                                      0xFF00CCCC)), // Borde verde agua al enfocar
+                                  color: Colors
+                                      .black), // Borde verde agua al enfocar
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            labelStyle: TextStyle(
-                                color: Colors.white), // Texto en blanco
+                            labelStyle: TextStyle(color: Colors.black),
+                            fillColor: Colors.white, // Fondo blanco
+                            filled: true, // Habilita el fondo blanco
+                            hintStyle: TextStyle(
+                              color: Colors.grey, // Color de texto gris
+                            ), // Texto en blanco
                           ),
                           validator: (value) {
                             if (value == null || value.length != 10) {
@@ -342,12 +356,17 @@ class _RegistroSupermercadoState extends State<RegistroSupermercado>{
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Color(
-                                      0xFF00CCCC)), // Borde verde agua al enfocar
+                                  color: Colors
+                                      .black), // Borde verde agua al enfocar
                               borderRadius: BorderRadius.circular(20),
                             ),
                             labelStyle: TextStyle(
-                                color: Colors.white), // Texto en blanco
+                                color: Colors.black), // Texto en blanco
+                            fillColor: Colors.white, // Fondo blanco
+                            filled: true, // Habilita el fondo blanco
+                            hintStyle: TextStyle(
+                              color: Colors.grey, // Color de texto gris
+                            ),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -368,12 +387,17 @@ class _RegistroSupermercadoState extends State<RegistroSupermercado>{
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Color(
-                                      0xFF00CCCC)), // Borde verde agua al enfocar
+                                  color: Colors
+                                      .black), // Borde verde agua al enfocar
                               borderRadius: BorderRadius.circular(20),
                             ),
                             labelStyle: TextStyle(
-                                color: Colors.white), // Texto en blanco
+                                color: Colors.black), // Texto en blanco
+                            fillColor: Colors.white, // Fondo blanco
+                            filled: true, // Habilita el fondo blanco
+                            hintStyle: TextStyle(
+                              color: Colors.grey, // Color de texto gris
+                            ),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -387,9 +411,12 @@ class _RegistroSupermercadoState extends State<RegistroSupermercado>{
                         SizedBox(height: 20),
                         ElevatedButton(
                           onPressed: _submitForm,
-                          child: Text('Enviar'),
+                          child: Text(
+                            'Registrate YA!!!',
+                            style: TextStyle(color: Colors.white),
+                          ),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue,
+                            backgroundColor: Color(0xFF93E9BE),
                             fixedSize: Size(200, 50),
                             elevation: 5,
                             shape: RoundedRectangleBorder(
@@ -406,52 +433,57 @@ class _RegistroSupermercadoState extends State<RegistroSupermercado>{
               ),
             ),
           ),
-        ],
-      ),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.transparent,
-        elevation: 0,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Image.asset(
-                  'assets/logo.png', // Asegúrate de tener esta imagen en tu carpeta assets
-                  height: 50,
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: BottomAppBar(
+              color: Colors.transparent,
+              elevation: 0,
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Image.asset(
+                        'images/logo.png', // Asegúrate de tener esta imagen en tu carpeta assets
+                        height: 50,
+                      ),
+                      Row(
+                        children: [
+                          Image.asset(
+                            'images/facebook.png', // Asegúrate de tener esta imagen en tu carpeta assets
+                            height: 24,
+                            width: 24,
+                          ),
+                          SizedBox(width: 10),
+                          Image.asset(
+                            'images/instagram.png', // Asegúrate de tener esta imagen en tu carpeta assets
+                            height: 24,
+                            width: 24,
+                          ),
+                          SizedBox(width: 10),
+                          Image.asset(
+                            'images/tiktok.png', // Asegúrate de tener esta imagen en tu carpeta assets
+                            height: 24,
+                            width: 24,
+                          ),
+                          SizedBox(width: 10),
+                          Image.asset(
+                            'images/youtube.png', // Asegúrate de tener esta imagen en tu carpeta assets
+                            height: 24,
+                            width: 24,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-                Row(
-                  children: [
-                    Image.asset(
-                      'images/facebook.png', // Asegúrate de tener esta imagen en tu carpeta assets
-                      height: 24,
-                      width: 24,
-                    ),
-                    SizedBox(width: 10),
-                    Image.asset(
-                      'images/instagram.png', // Asegúrate de tener esta imagen en tu carpeta assets
-                      height: 24,
-                      width: 24,
-                    ),
-                    SizedBox(width: 10),
-                    Image.asset(
-                      'images/tiktok.png', // Asegúrate de tener esta imagen en tu carpeta assets
-                      height: 24,
-                      width: 24,
-                    ),
-                    SizedBox(width: 10),
-                    Image.asset(
-                      'images/youtube.png', // Asegúrate de tener esta imagen en tu carpeta assets
-                      height: 24,
-                      width: 24,
-                    ),
-                  ],
-                ),
-              ],
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }

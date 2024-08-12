@@ -19,7 +19,7 @@ class MecanicaPage extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => HomePage()), // Asegúrate de tener una HomePage definida
               );
             },
-            child: Image.asset('assets/logo.png'), // Asegúrate de tener esta imagen en tu carpeta assets
+            child: Image.asset('images/logo2.png'), // Asegúrate de tener esta imagen en tu carpeta assets
           ),
           onPressed: () {
             // Lógica para ir a la página de inicio
@@ -118,154 +118,119 @@ class MecanicaPage extends StatelessWidget {
           ),
         ),
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('images/fondo.png'), // Asegúrate de tener esta imagen en tu carpeta assets
-            fit: BoxFit.cover, // La imagen ocupará todo el ancho de la pantalla
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 80), // Separación del AppBar
-                Text(
-                  'Promo en Colmados',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-                SizedBox(height: 16),
-                // Agregar espacio entre las imágenes
-              SizedBox(height: 16),
-              Text(
-                'Premios',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('images/fondo3.jpg'),
+                  fit: BoxFit.cover,
                 ),
               ),
-              SizedBox(height: 16),
-              Column(
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: kToolbarHeight, left: 26.0), // Espacio para el AppBar
+            child: SingleChildScrollView(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Bonos de compra en supermercados', style: TextStyle(color: Colors.white)),
-                  Text('Canasta de productos Induveca', style: TextStyle(color: Colors.white)),
-                  Text('Laptops', style: TextStyle(color: Colors.white)),
-                  Text('Tablets', style: TextStyle(color: Colors.white)),
-                ],
-              ),
-              SizedBox(height: 16),
-              Text(
-  '¡No te pierdas la oportunidad de ganar estos increíbles premios y comenzar el regreso a clases con todo lo que necesitas gracias a Santal!',
-  style: TextStyle(
-    fontStyle: FontStyle.italic,
-    color: Colors.white,
-  ),
-),
-SizedBox(height: 32), // Espacio adicional
-Text(
-  'Pasos para participar:',
-  style: TextStyle(
-    fontSize: 20,
-    fontWeight: FontWeight.bold,
-    color: Colors.white,
-  ),
-),
-SizedBox(height: 16),
-Row(
-  children: [
-    Image.asset(
-      'images/logo.png', // Asegúrate de tener esta imagen en tu carpeta assets
-      width: 24,
-      height: 24,
-    ),
-    SizedBox(width: 8),
-    Text(
-      'Adquiere cualquier sabor y Formato de la marca Santal', // Texto "Adquiere cualquier sabor"
-      style: TextStyle(
-        color: Colors.white,
-      ),
-    ),
-    
-  ],
-),
-SizedBox(height: 16),
-Row(
-  children: [
-    Image.asset(
-      'images/logo.png', // Asegúrate de tener esta imagen en tu carpeta assets
-      width: 24,
-      height: 24,
-    ),
-    SizedBox(width: 8),
-    Text(
-      'Entra a nuestra página web promosantal.com y registra el código del producto', // Texto "Entra a nuestra página web promosantal.com y registra el código del producto"
-      style: TextStyle(
-        color: Colors.white,
-      ),
-    ),
-  ],
-),
-SizedBox(height: 16),
-Row(
-  children: [
-    Image.asset(
-      'images/logo.png', // Asegúrate de tener esta imagen en tu carpeta assets
-      width: 24,
-      height: 24,
-    ),
-    SizedBox(width: 8),
-    Text(
-      'Conserva el empaque de tu producto, ya que será necesario si resultas ganador', // Texto "Conserva el empaque de tu producto, ya que será necesario si resultas ganador"
-      style: TextStyle(
-        color: Colors.white,
-      ),
-    ),
-  ],
-),
-SizedBox(height: 16),
-Row(
-  children: [
-    Image.asset(
-      'images/logo.png', // Asegúrate de tener esta imagen en tu carpeta assets
-      width: 24,
-      height: 24,
-    ),
-    SizedBox(width: 8),
-    Text(
-      'Prepárate para ser uno de los próximos ganadores', // Texto "Prepárate para ser uno de los próximos ganadores"
-      style: TextStyle(
-        color: Colors.white,
-      ),
-    ),
-    SizedBox(height: 20),
-                // Agregar la primera imagen aquí
-                Image.asset(
-                  'images/p1.png', // Asegúrate de tener esta imagen en tu carpeta assets
-                  width: 200,
-                  height: 300,
-                ),
-                // Agregar espacio entre las imágenes
-                SizedBox(height: 20),
-                // Agregar la segunda imagen aquí
-                Image.asset(
-                  'images/p2.png', // Asegúrate de tener esta imagen en tu carpeta assets
-                  width: 200,
-                  height: 300,
-                ),
-  ],
-),
-            ],
-          ),
+      Text(
+        'Promo en colmados',
+        style: TextStyle(
+          fontSize: 34,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
         ),
       ),
+      SizedBox(height: 16),
+      Text(
+        'Premios',
+        style: TextStyle(
+          fontSize: 30,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+      ),
+      SizedBox(height: 16),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('-Bonos de compra en supermercados', style: TextStyle(color: Colors.white)),
+          Text('-Canasta de productos induveca', style: TextStyle(color: Colors.white)),
+          Text('-Laptops y tablets', style: TextStyle(color: Colors.white)),
+          Text('-Tablets', style: TextStyle(color: Colors.white)),
+        ],
+      ),
+      SizedBox(height: 16),
+      Text(
+        'No te pierdas la oportunidad de ganar estos\ny increíbles premios comenzar el regreso\ny a clases con todo lo que necesitas\ny gracias a Santal.',
+        style: TextStyle(
+          fontSize: 16,
+          color: Colors.white,
+        ),
+        textAlign: TextAlign.left, // Alineación a la izquierda
+      ),
+      SizedBox(height: 16),
+      Text(
+        'Pasos para participar:',
+        style: TextStyle(
+          fontSize: 30,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+      ),
+      SizedBox(height: 16),
+      Row(
+        children: [
+          Image.asset('images/img1.png', width: 30, height: 30), // Reemplaza con la ruta correcta de la imagen
+          SizedBox(width: 8),
+          Text(
+            'Adquiere cualquier sabor y formato de la marca Santal',
+            style: TextStyle(color: Colors.white),
+          ),
+        ],
+      ),
+      SizedBox(height: 8),
+      Row(
+        children: [
+          Image.asset('images/img2.png', width: 30, height: 30), // Reemplaza con la ruta correcta de la imagen
+          SizedBox(width: 8),
+          Text(
+            'Entra a nuestra pagina web\ny promosantal.com y registra el codigo\ny del producto',
+            style: TextStyle(color: Colors.white),
+          ),
+        ],
+      ),
+       SizedBox(height: 8),
+      Row(
+        children: [
+          Image.asset('images/img3.png', width: 30, height: 30), // Reemplaza con la ruta correcta de la imagen
+          SizedBox(width: 8),
+          Text(
+            'Conserva el empaque de tu producto ya\ny que sera necesario si resultas ganador.',
+            style: TextStyle(color: Colors.white),
+          ),
+        ],
+      ),
+       SizedBox(height: 8),
+      Row(
+        children: [
+          Image.asset('images/img4.png', width: 30, height: 30), // Reemplaza con la ruta correcta de la imagen
+          SizedBox(width: 8),
+          Text(
+            'Preparate para ser uno de los proximos\ny ganadores!',
+            style: TextStyle(color: Colors.white),
+          ),
+        ],
+      ),
+      // Agrega más filas de imágenes y texto según sea necesario
+    ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
