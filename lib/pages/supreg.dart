@@ -108,6 +108,7 @@ class _RegistroSupermercadoState extends State<RegistroSupermercado> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        
         leading: IconButton(
           icon: GestureDetector(
             onTap: () {
@@ -119,7 +120,7 @@ class _RegistroSupermercadoState extends State<RegistroSupermercado> {
               );
             },
             child: Image.asset(
-                'assets/logo.png'), // Asegúrate de tener esta imagen en tu carpeta assets
+                'images/logo2.png'), // Asegúrate de tener esta imagen en tu carpeta assets
           ),
           onPressed: () {
             // Lógica para ir a la página de inicio

@@ -17,10 +17,13 @@ class MecanicaPage extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => HomePage()), // Asegúrate de tener una HomePage definida
+                MaterialPageRoute(
+                    builder: (context) =>
+                        HomePage()), // Asegúrate de tener una HomePage definida
               );
             },
-            child: Image.asset('images/logo2.png'), // Asegúrate de tener esta imagen en tu carpeta assets
+            child: Image.asset(
+                'images/logo2.png'), // Asegúrate de tener esta imagen en tu carpeta assets
           ),
           onPressed: () {
             // Lógica para ir a la página de inicio
@@ -97,7 +100,8 @@ class MecanicaPage extends StatelessWidget {
               ),
               ListTile(
                 leading: Icon(Icons.gavel, color: Colors.white),
-                title: Text('Base Legal', style: TextStyle(color: Colors.white)),
+                title:
+                    Text('Base Legal', style: TextStyle(color: Colors.white)),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -107,11 +111,13 @@ class MecanicaPage extends StatelessWidget {
               ),
               ListTile(
                 leading: Icon(Icons.calendar_today, color: Colors.white),
-                title: Text('Días del Sorteo', style: TextStyle(color: Colors.white)),
+                title: Text('Días del Sorteo',
+                    style: TextStyle(color: Colors.white)),
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => DiasDelSorteoPage()),
+                    MaterialPageRoute(
+                        builder: (context) => DiasDelSorteoPage()),
                   );
                 },
               ),
@@ -126,157 +132,192 @@ class MecanicaPage extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage('images/fond.png'),
-            fit: BoxFit.cover,
+            fit: BoxFit.fill,
           ),
         ),
       ),
     ),
     Padding(
-      padding: const EdgeInsets.only(top: 100, left: 20.0),
+      padding: const EdgeInsets.only(top: 100, left: 26.0),
       child: SingleChildScrollView(
-        child: Container(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Columna izquierda (contenido original)
-              Expanded(
-  child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        'Promo en colmados',
-        style: TextStyle(
-        fontSize: MediaQuery.of(context).size.width < 600 ? 16 : 36,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
-        ),
-      ),
-      SizedBox(height: 16),
-      Text(
-        'Premios',
-        style: TextStyle(
-fontSize: MediaQuery.of(context).size.width < 600 ? 16 : 36,       
-   fontWeight: FontWeight.bold,
-          color: Colors.white,
-        ),
-      ),
-            SizedBox(height: 16),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Promo en colmados',
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width < 600 ? 16 : 36,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    'Premios',
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width < 600 ? 16 : 36,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '- Bonos de compra en supermercados',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,
+                        ),
+                      ),
+                      Text(
+                        '- Canasta de productos induveca',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,
+                        ),
+                      ),
+                      Text(
+                        '- Laptops y tablets',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,
+                        ),
+                      ),
+                      Text(
+                        '- Tablets',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    'No te pierdas la oportunidad de ganar estos\ny increíbles premios comenzar el regreso\ny a clases con todo lo que necesitas\ny gracias a Santal.',
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,
+                      color: Colors.white,
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    'Pasos para participar:',
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width < 600 ? 16 : 36,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Image.asset(
+                        'images/img1.png',
+                        width: 30,
+                        height: 30,
+                      ),
+                      SizedBox(width: 8),
+                      Text(
+                        'Adquiere cualquier sabor y formato de la marca Santal',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Image.asset(
+                        'images/img2.png',
+                        width: 30,
+                        height: 30,
+                      ),
+                      SizedBox(width: 8),
+                      Text(
+                        'Entra a nuestra página web\ny promosantal.com y registra el código\ny del producto',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Image.asset(
+                        'images/img3.png',
+                        width: 30,
+                        height: 30,
+                      ),
+                      SizedBox(width: 8),
+                      Text(
+                        'Conserva el empaque de tu producto ya\nque será necesario si resultas ganador.',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Image.asset(
+                        'images/img4.png',
+                        width: 30,
+                        height: 30,
+                      ),
+                      SizedBox(width: 8),
+                      Text(
+                        'Prepárate para ser uno de los próximos\nganadores.',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 200),
+                  // Agrega más filas de imágenes y texto según sea necesario
+                ],
+              ),
+            ),
+            SizedBox(width: 16), // Espacio entre el contenido actual y las imágenes
+            Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
 
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('- Bonos de compra en supermercados', style: TextStyle(color: Colors.white, fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,), ),
-          Text('- Canasta de productos induveca', style: TextStyle(color: Colors.white, fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,)),
-          Text('- Laptops y tablets', style: TextStyle(color: Colors.white, fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,)),
-          Text('- Tablets', style: TextStyle(color: Colors.white, fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,)),
-        ],
-      ),
-      SizedBox(height: 16),
-      Text(
-        'No te pierdas la oportunidad de ganar estos\ny increíbles premios para el regreso a clases\ny con todo lo que necesitas gracias a Santal.',
-        style: TextStyle(
-              fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,
-          color: Colors.white,
-        ),
-        textAlign: TextAlign.left,
-      ),
-      SizedBox(height: 16),
-      Text(
-        'Pasos para participar:',
-        style: TextStyle(
-fontSize: MediaQuery.of(context).size.width < 600 ? 16 : 36,          fontWeight: FontWeight.bold,
-          color: Colors.white,
-        ),
-      ),
-            SizedBox(height: 16),
-
-      Row(
-        children: [
-          Image.asset('images/img1.png', width: 30, height: 30),
-          SizedBox(width: 8),
-          Text(
-            'Adquiere cualquier sabor y formato de la marca Santal',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,
-            ),
-          ),
-        ],
-      ),
-      SizedBox(height: 8),
-      Row(
-        children: [
-          Image.asset('images/img2.png', width: 30, height: 30),
-          SizedBox(width: 8),
-          Text(
-            'Entra a nuestra página web y promosantal.com y registra\ny el código del producto',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,
-            ),
-          ),
-        ],
-      ),
-      SizedBox(height: 8),
-      Row(
-        children: [
-          Image.asset('images/img3.png', width: 30, height: 30),
-          SizedBox(width: 8),
-          Text(
-            'Conserva el empaque de tu producto, ya que\ny será necesario si resultas ganador',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,
-            ),
-          ),
-        ],
-      ),
-      SizedBox(height: 8),
-      Row(
-        children: [
-          Image.asset('images/img4.png', width: 30, height: 30),
-          SizedBox(width: 8),
-          Text(
-            'Prepárate para ser uno de los próximos ganadores',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,
-            ),
-          ),
-        ],
-      ),
-      // Agrega más filas de imágenes y texto según sea necesario
-    ],
-  ),
-),
-
-              // Columna derecha (nuevo Container con imágenes)
-              Align(
-  alignment: Alignment.centerRight,
-  child: Padding(
-    padding: const EdgeInsets.only(top: 16, right: 200),
-    child: ClipRect(
-      child: MediaQuery.of(context).size.width < 600 // Cambia 600 al ancho deseado para dispositivos móviles
-          ? SizedBox.shrink() // Oculta las imágenes
-          : Column(
               children: [
-                Image.asset('images/pre1.png', width: 300, height: 300),
-                Image.asset('images/p2.png', width: 300, height: 300),
+                Image.asset(
+                  'images/pre1.png',
+                  width: MediaQuery.of(context).size.width < 600 ? 100 : 400,
+                  height: MediaQuery.of(context).size.width < 600 ? 100 : 400,
+                ),
+                SizedBox(height: 16),
+                Image.asset(
+                  'images/p2.png',
+                  width: MediaQuery.of(context).size.width < 600 ? 100 : 400,
+                  height: MediaQuery.of(context).size.width < 600 ? 100 : 400,
+                ),
               ],
             ),
-    ),
-  ),
-)
+                            SizedBox(height: 200),
 
-            ],
-          ),
+          ],
+          
         ),
+        
       ),
     ),
   ],
-)
-
-
+),
     );
   }
 }

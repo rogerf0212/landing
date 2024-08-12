@@ -106,8 +106,9 @@ class _RegistroColmadoState extends State<RegistroColmado> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.blue[900],
         elevation: 0,
+        toolbarHeight: 70.0,
         leading: IconButton(
           icon: GestureDetector(
             onTap: () {
@@ -228,7 +229,7 @@ class _RegistroColmadoState extends State<RegistroColmado> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('images/fondo7.jpg'),
+                image: AssetImage('images/fond.png'),
                 fit: BoxFit.cover,
               ),
             ),

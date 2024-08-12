@@ -11,6 +11,7 @@ class MecanicasupPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+       toolbarHeight: 70.0,
         leading: IconButton(
           icon: GestureDetector(
             onTap: () {
@@ -125,13 +126,13 @@ class MecanicasupPage extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage('images/fondo3.jpg'),
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                 ),
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: kToolbarHeight, left: 26.0), // Espacio para el AppBar
+            padding: const EdgeInsets.only(top: 100, left: 26.0), // Espacio para el AppBar
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -230,6 +231,7 @@ fontSize: MediaQuery.of(context).size.width < 600 ? 16 : 36,
           ),
         ],
       ),
+      SizedBox(height: 200),
       // Agrega más filas de imágenes y texto según sea necesario
     ],
               ),
