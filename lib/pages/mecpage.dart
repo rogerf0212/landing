@@ -159,20 +159,22 @@ fontSize: MediaQuery.of(context).size.width < 600 ? 24 : 36,          fontWeight
           color: Colors.white,
         ),
       ),
+            SizedBox(height: 16),
+
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('- Bonos de compra en supermercados', style: TextStyle(color: Colors.white)),
-          Text('- Canasta de productos induveca', style: TextStyle(color: Colors.white)),
-          Text('- Laptops y tablets', style: TextStyle(color: Colors.white)),
-          Text('- Tablets', style: TextStyle(color: Colors.white)),
+          Text('- Bonos de compra en supermercados', style: TextStyle(color: Colors.white, fontSize: MediaQuery.of(context).size.width < 600 ? 10 : 16,), ),
+          Text('- Canasta de productos induveca', style: TextStyle(color: Colors.white, fontSize: MediaQuery.of(context).size.width < 600 ? 10 : 16,)),
+          Text('- Laptops y tablets', style: TextStyle(color: Colors.white, fontSize: MediaQuery.of(context).size.width < 600 ? 10 : 16,)),
+          Text('- Tablets', style: TextStyle(color: Colors.white, fontSize: MediaQuery.of(context).size.width < 600 ? 10 : 16,)),
         ],
       ),
       SizedBox(height: 16),
       Text(
         'No te pierdas la oportunidad de ganar estos\ny increíbles premios para el regreso a clases\ny con todo lo que necesitas gracias a Santal.',
         style: TextStyle(
-          fontSize: 16,
+              fontSize: MediaQuery.of(context).size.width < 600 ? 10 : 16,
           color: Colors.white,
         ),
         textAlign: TextAlign.left,
@@ -185,6 +187,8 @@ fontSize: MediaQuery.of(context).size.width < 600 ? 24 : 36,          fontWeight
           color: Colors.white,
         ),
       ),
+            SizedBox(height: 16),
+
       Row(
         children: [
           Image.asset('images/img1.png', width: 30, height: 30),
