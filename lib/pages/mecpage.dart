@@ -303,8 +303,8 @@ class MecanicaPage extends StatelessWidget {
                 SizedBox(height: 16),
                 Image.asset(
                   'images/p2.png',
-                  width: MediaQuery.of(context).size.width < 600 ? 100 : 400,
-                  height: MediaQuery.of(context).size.width < 600 ? 100 : 400,
+                  width: MediaQuery.of(context).size.width < 600 ? 150 : 400,
+                  height: MediaQuery.of(context).size.width < 600 ? 150 : 400,
                 ),
               ],
             ),

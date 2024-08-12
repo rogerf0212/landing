@@ -229,7 +229,7 @@ class _RegistroColmadoState extends State<RegistroColmado> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('images/fond.png'),
+                image: AssetImage('images/fondo11.jpg'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -455,27 +455,27 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                       Row(
                         children: [
                           Image.asset(
-                            'images/facebook.png', // Asegúrate de tener esta imagen en tu carpeta assets
-                            height: 24,
-                            width: 24,
+                            'images/face.png', // Asegúrate de tener esta imagen en tu carpeta assets
+                            height: 44,
+                            width: 44,
                           ),
                           SizedBox(width: 10),
                           Image.asset(
-                            'images/instagram.png', // Asegúrate de tener esta imagen en tu carpeta assets
-                            height: 24,
-                            width: 24,
+                            'images/insta.png', // Asegúrate de tener esta imagen en tu carpeta assets
+                            height: 44,
+                            width: 44,
                           ),
                           SizedBox(width: 10),
                           Image.asset(
-                            'images/tiktok.png', // Asegúrate de tener esta imagen en tu carpeta assets
-                            height: 24,
-                            width: 24,
+                            'images/tktk.png', // Asegúrate de tener esta imagen en tu carpeta assets
+                            height: 44,
+                            width: 44,
                           ),
                           SizedBox(width: 10),
                           Image.asset(
-                            'images/youtube.png', // Asegúrate de tener esta imagen en tu carpeta assets
-                            height: 24,
-                            width: 24,
+                            'images/you.png', // Asegúrate de tener esta imagen en tu carpeta assets
+                            height: 44,
+                            width: 44,
                           ),
                         ],
                       ),

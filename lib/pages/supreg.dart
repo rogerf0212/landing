@@ -106,8 +106,9 @@ class _RegistroSupermercadoState extends State<RegistroSupermercado> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.blue[900],
         elevation: 0,
+        toolbarHeight: 70.0,
         
         leading: IconButton(
           icon: GestureDetector(
