@@ -9,8 +9,9 @@ class MecanicaPage extends StatelessWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.blue[900],
         elevation: 0,
+        toolbarHeight: 70.0,
         leading: IconButton(
           icon: GestureDetector(
             onTap: () {
@@ -119,27 +120,33 @@ class MecanicaPage extends StatelessWidget {
         ),
       ),
       body: Stack(
-        children: [
-          Positioned.fill(
-            child: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('images/fondo3.jpg'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
+  children: [
+    Positioned.fill(
+      child: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('images/fond.png'),
+            fit: BoxFit.cover,
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: kToolbarHeight, left: 26.0), // Espacio para el AppBar
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+        ),
+      ),
+    ),
+    Padding(
+      padding: const EdgeInsets.only(top: 100, left: 20.0),
+      child: SingleChildScrollView(
+        child: Container(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Columna izquierda (contenido original)
+              Expanded(
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
       Text(
         'Promo en colmados',
         style: TextStyle(
-          fontSize: 34,
+        fontSize: MediaQuery.of(context).size.width < 600 ? 24 : 36,
           fontWeight: FontWeight.bold,
           color: Colors.white,
         ),
@@ -148,90 +155,123 @@ class MecanicaPage extends StatelessWidget {
       Text(
         'Premios',
         style: TextStyle(
-          fontSize: 30,
-          fontWeight: FontWeight.bold,
+fontSize: MediaQuery.of(context).size.width < 600 ? 24 : 36,          fontWeight: FontWeight.bold,
           color: Colors.white,
         ),
       ),
-      SizedBox(height: 16),
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('-Bonos de compra en supermercados', style: TextStyle(color: Colors.white)),
-          Text('-Canasta de productos induveca', style: TextStyle(color: Colors.white)),
-          Text('-Laptops y tablets', style: TextStyle(color: Colors.white)),
-          Text('-Tablets', style: TextStyle(color: Colors.white)),
+          Text('- Bonos de compra en supermercados', style: TextStyle(color: Colors.white)),
+          Text('- Canasta de productos induveca', style: TextStyle(color: Colors.white)),
+          Text('- Laptops y tablets', style: TextStyle(color: Colors.white)),
+          Text('- Tablets', style: TextStyle(color: Colors.white)),
         ],
       ),
       SizedBox(height: 16),
       Text(
-        'No te pierdas la oportunidad de ganar estos\ny increíbles premios comenzar el regreso\ny a clases con todo lo que necesitas\ny gracias a Santal.',
+        'No te pierdas la oportunidad de ganar estos\ny increíbles premios para el regreso a clases\ny con todo lo que necesitas gracias a Santal.',
         style: TextStyle(
           fontSize: 16,
           color: Colors.white,
         ),
-        textAlign: TextAlign.left, // Alineación a la izquierda
+        textAlign: TextAlign.left,
       ),
       SizedBox(height: 16),
       Text(
         'Pasos para participar:',
         style: TextStyle(
-          fontSize: 30,
-          fontWeight: FontWeight.bold,
+fontSize: MediaQuery.of(context).size.width < 600 ? 24 : 36,          fontWeight: FontWeight.bold,
           color: Colors.white,
         ),
       ),
-      SizedBox(height: 16),
       Row(
         children: [
-          Image.asset('images/img1.png', width: 30, height: 30), // Reemplaza con la ruta correcta de la imagen
+          Image.asset('images/img1.png', width: 30, height: 30),
           SizedBox(width: 8),
           Text(
             'Adquiere cualquier sabor y formato de la marca Santal',
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: MediaQuery.of(context).size.width < 600 ? 10 : 16,
+            ),
           ),
         ],
       ),
       SizedBox(height: 8),
       Row(
         children: [
-          Image.asset('images/img2.png', width: 30, height: 30), // Reemplaza con la ruta correcta de la imagen
+          Image.asset('images/img2.png', width: 30, height: 30),
           SizedBox(width: 8),
           Text(
-            'Entra a nuestra pagina web\ny promosantal.com y registra el codigo\ny del producto',
-            style: TextStyle(color: Colors.white),
+            'Entra a nuestra página web y promosantal.com y registra\ny el código del producto',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: MediaQuery.of(context).size.width < 600 ? 10 : 16,
+            ),
           ),
         ],
       ),
-       SizedBox(height: 8),
+      SizedBox(height: 8),
       Row(
         children: [
-          Image.asset('images/img3.png', width: 30, height: 30), // Reemplaza con la ruta correcta de la imagen
+          Image.asset('images/img3.png', width: 30, height: 30),
           SizedBox(width: 8),
           Text(
-            'Conserva el empaque de tu producto ya\ny que sera necesario si resultas ganador.',
-            style: TextStyle(color: Colors.white),
+            'Conserva el empaque de tu producto, ya que\ny será necesario si resultas ganador',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: MediaQuery.of(context).size.width < 600 ? 10 : 16,
+            ),
           ),
         ],
       ),
-       SizedBox(height: 8),
+      SizedBox(height: 8),
       Row(
         children: [
-          Image.asset('images/img4.png', width: 30, height: 30), // Reemplaza con la ruta correcta de la imagen
+          Image.asset('images/img4.png', width: 30, height: 30),
           SizedBox(width: 8),
           Text(
-            'Preparate para ser uno de los proximos\ny ganadores!',
-            style: TextStyle(color: Colors.white),
+            'Prepárate para ser uno de los próximos ganadores',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: MediaQuery.of(context).size.width < 600 ? 10 : 16,
+            ),
           ),
         ],
       ),
       // Agrega más filas de imágenes y texto según sea necesario
     ],
-              ),
+  ),
+),
+
+              // Columna derecha (nuevo Container con imágenes)
+              Align(
+  alignment: Alignment.centerRight,
+  child: Padding(
+    padding: const EdgeInsets.only(top: 16, right: 200),
+    child: ClipRect(
+      child: MediaQuery.of(context).size.width < 600 // Cambia 600 al ancho deseado para dispositivos móviles
+          ? SizedBox.shrink() // Oculta las imágenes
+          : Column(
+              children: [
+                Image.asset('images/pre1.png', width: 300, height: 300),
+                Image.asset('images/p2.png', width: 300, height: 300),
+              ],
             ),
+    ),
+  ),
+)
+
+            ],
           ),
-        ],
+        ),
       ),
+    ),
+  ],
+)
+
+
     );
   }
 }
