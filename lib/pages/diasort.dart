@@ -4,22 +4,26 @@ import 'package:landing/pages/basepage.dart';
 import 'package:landing/pages/mecpage.dart';
 
 class DiasDelSorteoPage extends StatelessWidget {
- @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+         backgroundColor: Colors.blue[900],
         elevation: 0,
+        toolbarHeight: 70.0,
         leading: IconButton(
           icon: GestureDetector(
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => HomePage()), // Asegúrate de tener una HomePage definida
+                MaterialPageRoute(
+                    builder: (context) =>
+                        HomePage()), // Asegúrate de tener una HomePage definida
               );
             },
-            child: Image.asset('assets/logo.png'), // Asegúrate de tener esta imagen en tu carpeta assets
+            child: Image.asset(
+                'images/logo2.png'), // Asegúrate de tener esta imagen en tu carpeta assets
           ),
           onPressed: () {
             // Lógica para ir a la página de inicio
@@ -97,7 +101,8 @@ class DiasDelSorteoPage extends StatelessWidget {
               ),
               ListTile(
                 leading: Icon(Icons.gavel, color: Colors.white),
-                title: Text('Base Legal', style: TextStyle(color: Colors.white)),
+                title:
+                    Text('Base Legal', style: TextStyle(color: Colors.white)),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -107,11 +112,13 @@ class DiasDelSorteoPage extends StatelessWidget {
               ),
               ListTile(
                 leading: Icon(Icons.calendar_today, color: Colors.white),
-                title: Text('Días del Sorteo', style: TextStyle(color: Colors.white)),
+                title: Text('Días del Sorteo',
+                    style: TextStyle(color: Colors.white)),
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => DiasDelSorteoPage()),
+                    MaterialPageRoute(
+                        builder: (context) => DiasDelSorteoPage()),
                   );
                 },
               ),
@@ -122,7 +129,7 @@ class DiasDelSorteoPage extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('images/fondo.png'), // Asegúrate de tener esta imagen en tu carpeta assets
+            image: AssetImage('images/fond.png'),
             fit: BoxFit.cover,
           ),
         ),
@@ -130,4 +137,3 @@ class DiasDelSorteoPage extends StatelessWidget {
     );
   }
 }
-

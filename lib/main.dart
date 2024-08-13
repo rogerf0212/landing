@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:landing/pages/colreg.dart';
-import 'package:landing/pages/dash.dart';
 import 'package:landing/pages/dashboard_screan.dart';
 import 'package:landing/pages/supreg.dart';
 import 'package:go_router/go_router.dart';
@@ -71,7 +70,9 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
+  
   const HomePage({Key? key}) : super(key: key);
+  
 
   @override
   Widget build(BuildContext context) {
@@ -87,93 +88,157 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-          // Contenido con espaciado lateral
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Imagen en la esquina superior izquierda
-                Padding(
-                  padding: const EdgeInsets.only(top: 0),
-                  child: Image.asset(
-                    'images/promo.png',
-                    width: MediaQuery.of(context).size.width * 0.25,
-                    height: MediaQuery.of(context).size.width *
-                        0.2, // Ajusta la altura también
-                  ),
-                ),
-
-                // Centra el texto y los botones
-                Center(
-                  child: Column(
-                    children: [
-                      Text(
-                        '¿En qué tipo de establecimiento realizó su compra?',
-                        style: TextStyle(fontSize: 24, color: Colors.white),
-                      ),
-                      SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => RegistroColmado()),
-                          );
-                        },
-                        child: Text(
-                          'Colmado',
-                          style: TextStyle(
-                            color: Colors
-                                .white, // Cambiamos el color del texto a blanco
-                            fontWeight:
-                                FontWeight.bold, // Hacemos que el texto resalte
-                          ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(
-                              0xFF93E9BE), // Cambiamos el color de fondo a verde océano
-                          fixedSize: Size(200, 50),
-                          elevation: 5,
-                          shadowColor: Colors.black,
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => RegistroSupermercado()),
-                          );
-                        },
-                        child: Text(
-                          'Supermercado',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFF93E9BE), // Verde marino
-                          fixedSize: Size(200, 50),
-                          elevation: 5,
-                          shadowColor: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+           Positioned(
+            left: 50,
+            top: -50,
+            child: Visibility(
+               // Cambia el valor según tus necesidade
+              child: Image.asset(
+                'images/promo.png',
+                height: 300,
+                width: 300,
+              ),
             ),
           ),
-          // Imagen en la esquina inferior derecha
           Positioned(
+            left: 180,
+            bottom: 150,
+            child: Visibility(
+              visible: MediaQuery.of(context).size.width >
+                  600, // Cambia el valor según tus necesidades
+              child: Image.asset(
+                'images/lapiz.png',
+                height: 100,
+                width: 100,
+              ),
+            ),
+          ),
+          Positioned(
+            left: 100,
+            bottom: -100,
+            child: Visibility(
+              visible: MediaQuery.of(context).size.width >
+                  600, // Cambia el valor según tus necesidade
+              child: Image.asset(
+                'images/regla.png',
+                height: 300,
+                width: 300,
+              ),
+            ),
+          ),
+          // Contenido con espaciado lateral
+           Center( // Agregamos un Center widget
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center, 
+        crossAxisAlignment: CrossAxisAlignment.center, // Alineamos los elementos al centro
+        children: [
+          Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Text(
+            '¿En qué tipo de establecimiento realizó su compra?',
+            style: TextStyle(fontSize: 24, color: Colors.white),
+          ),
+          ),
+          SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => RegistroColmado()),
+              );
+            },
+            child: Text(
+              'Colmado',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Color(0xFF0D2E69),
+              fixedSize: Size(200, 50),
+              elevation: 5,
+              shadowColor: Colors.black,
+            ),
+          ),
+          SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => RegistroSupermercado()),
+              );
+            },
+            child: Text(
+              'Supermercado',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Color(0xFF0D2E69),
+              fixedSize: Size(200, 50),
+              elevation: 5,
+              shadowColor: Colors.black,
+            ),
+          ),
+        ],
+      ),
+    ),
+          
+          // Imagen en la esquina inferior derecha
+           Positioned(
+            right: 200,
+            top: 50,
+            child: Visibility(
+              visible: MediaQuery.of(context).size.width >
+                  600, // Cambia el valor según tus necesidades
+              child: Image.asset(
+                'images/avion.png',
+                height: 300,
+                width: 300,
+              ),
+            ),
+          ),
+          Positioned(
+            right: 100,
+            top: 200,
+            child: Visibility(
+              visible: MediaQuery.of(context).size.width >
+                  600, // Cambia el valor según tus necesidades
+              child: Image.asset(
+                'images/lapiz.png',
+                height: 100,
+                width: 100,
+              ),
+            ),
+          ),
+          Positioned(
+            right: 100,
+            bottom: -50,
+            child: Visibility(
+              visible: MediaQuery.of(context).size.width >
+                  600, // Cambia el valor según tus necesidade
+              child: Image.asset(
+                'images/jugos.png',
+                height: 400,
+                width: 400,
+              ),
+            ),
+          ),
+          Positioned(
+            right: 100,
+            left: 100,
             bottom: 0,
-            right: 0,
-            child: Image.asset(
-              'images/jugos.png',
-              width: MediaQuery.of(context).size.width * 0.4,
+            child: Visibility(
+              visible: MediaQuery.of(context).size.width <
+                  600, // Cambia el valor según tus necesidade
+              child: Image.asset(
+                'images/pre1.png',
+                height: 200,
+                width: 200,
+              ),
             ),
           ),
         ],

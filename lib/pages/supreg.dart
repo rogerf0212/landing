@@ -3,7 +3,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:landing/main.dart';
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart'; // Importa Firestore
-import 'package:landing/pages/dash.dart';
 import 'package:landing/pages/colmado.dart';
 import 'package:landing/pages/basepage.dart';
 import 'package:landing/pages/diasort.dart';
@@ -224,13 +223,52 @@ class _RegistroSupermercadoState extends State<RegistroSupermercado> {
           ),
         ),
       ),
-      body: Stack(
+       body: Stack(
         children: [
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('images/fond.png'),
                 fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Positioned(
+            left: 100,
+            top: 20,
+            child: Visibility(
+              visible: MediaQuery.of(context).size.width >
+                  600, // Cambia el valor según tus necesidade
+              child: Image.asset(
+                'images/promo.png',
+                height: 350,
+                width: 350,
+              ),
+            ),
+          ),
+          Positioned(
+            left: 180,
+            bottom: 150,
+            child: Visibility(
+              visible: MediaQuery.of(context).size.width >
+                  600, // Cambia el valor según tus necesidades
+              child: Image.asset(
+                'images/lapiz.png',
+                height: 100,
+                width: 100,
+              ),
+            ),
+          ),
+          Positioned(
+            left: 100,
+            bottom: -100,
+            child: Visibility(
+              visible: MediaQuery.of(context).size.width >
+                  600, // Cambia el valor según tus necesidade
+              child: Image.asset(
+                'images/regla.png',
+                height: 300,
+                width: 300,
               ),
             ),
           ),
@@ -418,7 +456,7 @@ class _RegistroSupermercadoState extends State<RegistroSupermercado> {
                             style: TextStyle(color: Colors.white),
                           ),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xFF93E9BE),
+                            backgroundColor: Color(0xFF0D2E69),
                             fixedSize: Size(200, 50),
                             elevation: 5,
                             shape: RoundedRectangleBorder(
@@ -436,12 +474,55 @@ class _RegistroSupermercadoState extends State<RegistroSupermercado> {
             ),
           ),
           Positioned(
+            right: 200,
+            top: 100,
+            child: Visibility(
+              visible: MediaQuery.of(context).size.width >
+                  600, // Cambia el valor según tus necesidades
+              child: Image.asset(
+                'images/avion.png',
+                height: 250,
+                width: 250,
+              ),
+            ),
+          ),
+          Positioned(
+            right: 100,
+            top: 250,
+            child: Visibility(
+              visible: MediaQuery.of(context).size.width >
+                  600, // Cambia el valor según tus necesidades
+              child: Image.asset(
+                'images/lapiz.png',
+                height: 80,
+                width: 80,
+              ),
+            ),
+          ),
+          Positioned(
+            right: 100,
+            bottom: 20,
+            child: Visibility(
+              visible: MediaQuery.of(context).size.width >
+                  600, // Cambia el valor según tus necesidade
+              child: Image.asset(
+                'images/jugos.png',
+                height: 300,
+                width: 300,
+              ),
+            ),
+          ),
+          
+          Positioned(
             bottom: 0,
             left: 0,
             right: 0,
+            
             child: BottomAppBar(
               color: Colors.transparent,
               elevation: 0,
+              height: 80,
+              
               child: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
@@ -455,27 +536,27 @@ class _RegistroSupermercadoState extends State<RegistroSupermercado> {
                       Row(
                         children: [
                           Image.asset(
-                            'images/facebook.png', // Asegúrate de tener esta imagen en tu carpeta assets
-                            height: 24,
-                            width: 24,
+                            'images/face.png', // Asegúrate de tener esta imagen en tu carpeta assets
+                            height: 44,
+                            width: 44,
                           ),
                           SizedBox(width: 10),
                           Image.asset(
-                            'images/instagram.png', // Asegúrate de tener esta imagen en tu carpeta assets
-                            height: 24,
-                            width: 24,
+                            'images/insta.png', // Asegúrate de tener esta imagen en tu carpeta assets
+                            height: 44,
+                            width: 44,
                           ),
                           SizedBox(width: 10),
                           Image.asset(
-                            'images/tiktok.png', // Asegúrate de tener esta imagen en tu carpeta assets
-                            height: 24,
-                            width: 24,
+                            'images/tktk.png', // Asegúrate de tener esta imagen en tu carpeta assets
+                            height: 44,
+                            width: 44,
                           ),
                           SizedBox(width: 10),
                           Image.asset(
-                            'images/youtube.png', // Asegúrate de tener esta imagen en tu carpeta assets
-                            height: 24,
-                            width: 24,
+                            'images/you.png', // Asegúrate de tener esta imagen en tu carpeta assets
+                            height: 44,
+                            width: 44,
                           ),
                         ],
                       ),
@@ -484,7 +565,8 @@ class _RegistroSupermercadoState extends State<RegistroSupermercado> {
                 ),
               ),
             ),
-          ),
+            ),
+          
         ],
       ),
     );

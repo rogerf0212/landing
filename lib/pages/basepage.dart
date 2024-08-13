@@ -11,8 +11,9 @@ class BaseLegalPage extends StatelessWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+         backgroundColor: Colors.blue[900],
         elevation: 0,
+        toolbarHeight: 70.0,
         leading: IconButton(
           icon: GestureDetector(
             onTap: () {
@@ -21,7 +22,7 @@ class BaseLegalPage extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => HomePage()),
               );
             },
-            child: Image.asset('assets/logo.png'),
+            child: Image.asset('images/logo2.png'),
           ),
           onPressed: () {
             // Lógica para ir a la página de inicio
@@ -123,7 +124,7 @@ class BaseLegalPage extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(isWideScreen ? 'images/fondo.png' : 'images/fondom.jpg'),
+           image: AssetImage('images/fond.png'),
             fit: BoxFit.cover,
           ),
         ),
