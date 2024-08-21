@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:landing/main.dart';
 import 'package:landing/pages/basepage.dart';
 import 'package:landing/pages/mecpage.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class DiasDelSorteoPage extends StatelessWidget {
   @override
@@ -23,7 +24,7 @@ class DiasDelSorteoPage extends StatelessWidget {
               );
             },
             child: Image.asset(
-                'images/logo2.png'), // Asegúrate de tener esta imagen en tu carpeta assets
+                'images/logo.png'), // Asegúrate de tener esta imagen en tu carpeta assets
           ),
           onPressed: () {
             // Lógica para ir a la página de inicio
@@ -126,14 +127,12 @@ class DiasDelSorteoPage extends StatelessWidget {
           ),
         ),
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('images/fond.png'),
-            fit: BoxFit.cover,
-          ),
-        ),
-      ),
+     body: Stack(
+  
+)
+
+
+
     );
   }
 }

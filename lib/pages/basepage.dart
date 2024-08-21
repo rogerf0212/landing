@@ -22,7 +22,7 @@ class BaseLegalPage extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => HomePage()),
               );
             },
-            child: Image.asset('images/logo2.png'),
+            child: Image.asset('images/logo.png'),
           ),
           onPressed: () {
             // Lógica para ir a la página de inicio

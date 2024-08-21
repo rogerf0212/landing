@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:landing/main.dart';
@@ -8,13 +11,134 @@ import 'package:landing/pages/basepage.dart';
 import 'package:landing/pages/diasort.dart';
 import 'package:landing/pages/mecapagesup.dart';
 import 'package:landing/pages/mecpage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
+
 
 class RegistroSupermercado extends StatefulWidget {
+  const RegistroSupermercado({Key? key}) : super(key: key);
   @override
   _RegistroSupermercadoState createState() => _RegistroSupermercadoState();
 }
 
 class _RegistroSupermercadoState extends State<RegistroSupermercado> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      // Mostrar el cuadro de diálogo después de que se cargue la página
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: Color(0xFF0D2E69), // Fondo azul
+            title: Text(
+              'Pasos para participar:',
+              style: TextStyle(
+                fontSize: MediaQuery.of(context).size.width < 600 ? 16 : 36,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            content: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  children: [
+                    Image.asset(
+                      'images/img1.png',
+                      width: 30,
+                      height: 30,
+                    ),
+                    SizedBox(width: 8),
+                    Text(
+                      'Adquiere cualquier sabor y formato de la marca Santal.',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize:
+                            MediaQuery.of(context).size.width < 600 ? 8 : 16,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 8),
+                Row(
+                  children: [
+                    Image.asset(
+                      'images/img4.png',
+                      width: 30,
+                      height: 30,
+                    ),
+                    SizedBox(width: 8),
+                    Text(
+                      'Entra a nuestra página web\npromosantal.com y registra el código\n de tu factura.',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize:
+                            MediaQuery.of(context).size.width < 600 ? 8 : 16,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 6),
+                Row(
+                  children: [
+                    Image.asset(
+                      'images/img2.png',
+                      width: 30,
+                      height: 30,
+                    ),
+                    SizedBox(width: 8),
+                    Text(
+                      'Sube una foto de la factura de tu compra.',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize:
+                            MediaQuery.of(context).size.width < 600 ? 8 : 16,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 6),
+                Row(
+                  children: [
+                    Image.asset(
+                      'images/img3.png',
+                      width: 30,
+                      height: 30,
+                    ),
+                    SizedBox(width: 8),
+                    Text(
+                      'Prepárate para ser uno de los próximos\nganadores.',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize:
+                            MediaQuery.of(context).size.width < 600 ? 8 : 16,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Cerrar',
+                    style: TextStyle(
+                      color: Colors.white,
+                    )),
+              ),
+            ],
+          );
+        },
+      );
+    });
+  }
+
   final _formKey = GlobalKey<FormState>();
   final _nombreController = TextEditingController();
   final _cedulaController = TextEditingController();
@@ -23,27 +147,106 @@ class _RegistroSupermercadoState extends State<RegistroSupermercado> {
   final _codigoProductoController = TextEditingController();
   final String _realizoCompra = 'Realizó la compra en un Supermercado';
 
-  void _submitForm() async {
-    if (_formKey.currentState!.validate()) {
-      // Consulta Firestore para verificar si el código de producto ya existe
-      final existingProduct = await FirebaseFirestore.instance
-          .collection('registros')
-          .where('codigoProducto', isEqualTo: _codigoProductoController.text)
-          .get();
+  PlatformFile? _selectedImage;
 
-      if (existingProduct.docs.isNotEmpty) {
-        // El código de producto ya existe, muestra un mensaje de error
+  Future<void> pickImage() async {
+    final result = await FilePicker.platform.pickFiles(type: FileType.image);
+    if (result != null) {
+      setState(() {
+        _selectedImage = result.files.single;
+      });
+    }
+  }
+
+ void _submitForm() async {
+  if (_formKey.currentState!.validate()) {
+    // Consulta Firestore para verificar si el código de producto ya existe
+    final existingProduct = await FirebaseFirestore.instance
+        .collection('registros')
+        .where('codigoProducto', isEqualTo: _codigoProductoController.text)
+        .get();
+
+    if (existingProduct.docs.isNotEmpty) {
+      // El código de producto ya existe, muestra un mensaje de error
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error', style: TextStyle(color: Colors.white)),
+            content: Text('Este código de producto ya fue registrado.',
+                style: TextStyle(color: Colors.white)),
+            backgroundColor: Colors.lightBlue, // Fondo azul cielo
+            actions: <Widget>[
+              TextButton(
+                child: Text('Cerrar', style: TextStyle(color: Colors.white)),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      // Subir la imagen a Firebase Storage (si hay una imagen seleccionada)
+      if (_selectedImage != null) {
+        final storageRef = FirebaseStorage.instance.ref().child('images/${_codigoProductoController.text}.jpg');
+        
+
+        try {
+          await storageRef.putData(_selectedImage!.bytes!);
+          final downloadUrl = await storageRef.getDownloadURL();
+          print('Imagen subida con éxito. URL: $downloadUrl');
+        } catch (e) {
+          print('Error al subir la imagen: $e');
+        }
+      }
+
+      // Guardar los datos en Firestore
+      try {
+        await FirebaseFirestore.instance.collection('registros').add({
+          'nombre': _nombreController.text,
+          'cedula': _cedulaController.text,
+          'telefono': _telefonoController.text,
+          'email': _emailController.text,
+          'codigoProducto': _codigoProductoController.text,
+          'realizoCompra': _realizoCompra,
+        });
+
+        final smtpServer = SmtpServer('smtp.gmail.com',
+      username: 'induvecavip@gmail.com',
+      password: 'Vip2024#');
+
+  final message = Message()
+    ..from = Address('induvecavip@gmail.com', 'Promosantal')
+    ..recipients.add(_emailController.text)
+    ..subject = 'Participación en el concurso'
+    ..text = '¡Ya estás participando en el concurso!';
+
+  try {
+    final sendReport = await send(message, smtpServer);
+    print('Correo electrónico enviado: ${sendReport.toString()}');
+  } catch (e) {
+    print('Error al enviar el correo electrónico: $e');
+  }
+
+
+        // Mostrar un cuadro de diálogo personalizado
         showDialog(
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text('Error', style: TextStyle(color: Colors.white)),
-              content: Text('Este código de producto ya fue registrado.',
+              title: Text('¡Tu registro ha sido exitoso!',
                   style: TextStyle(color: Colors.white)),
+              content: Text(
+                  'Te deseamos mucha suerte. No olvides visitar nuestra página el\n 30 de septiembre para conocer si eres uno de los ganadores.\n \n ¡Gracias por participar!',
+                  style: TextStyle(color: Colors.white),
+                  textAlign: TextAlign.center),
               backgroundColor: Colors.lightBlue, // Fondo azul cielo
               actions: <Widget>[
                 TextButton(
-                  child: Text('Cerrar', style: TextStyle(color: Colors.white)),
+                  child:
+                      Text('Cerrar', style: TextStyle(color: Colors.white)),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -52,53 +255,19 @@ class _RegistroSupermercadoState extends State<RegistroSupermercado> {
             );
           },
         );
-      } else {
-        // Guardar los datos en Firestore
-        try {
-          await FirebaseFirestore.instance.collection('registros').add({
-            'nombre': _nombreController.text,
-            'cedula': _cedulaController.text,
-            'telefono': _telefonoController.text,
-            'email': _emailController.text,
-            'codigoProducto': _codigoProductoController.text,
-            'realizoCompra': _realizoCompra,
-          });
 
-          // Mostrar un cuadro de diálogo personalizado
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: Text('¡Gracias por participar!',
-                    style: TextStyle(color: Colors.white)),
-                content:
-                    Text('Suerteeeeee', style: TextStyle(color: Colors.white)),
-                backgroundColor: Colors.lightBlue, // Fondo azul cielo
-                actions: <Widget>[
-                  TextButton(
-                    child:
-                        Text('Cerrar', style: TextStyle(color: Colors.white)),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
-              );
-            },
-          );
-
-          // Limpiar los campos del formulario
-          _nombreController.clear();
-          _cedulaController.clear();
-          _telefonoController.clear();
-          _emailController.clear();
-          _codigoProductoController.clear();
-        } catch (e) {
-          print('Error al guardar los datos: $e');
-        }
+        // Limpiar los campos del formulario
+        _nombreController.clear();
+        _cedulaController.clear();
+        _telefonoController.clear();
+        _emailController.clear();
+        _codigoProductoController.clear();
+      } catch (e) {
+        print('Error al guardar los datos: $e');
       }
     }
   }
+}
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +277,6 @@ class _RegistroSupermercadoState extends State<RegistroSupermercado> {
         backgroundColor: Colors.blue[900],
         elevation: 0,
         toolbarHeight: 70.0,
-        
         leading: IconButton(
           icon: GestureDetector(
             onTap: () {
@@ -120,7 +288,7 @@ class _RegistroSupermercadoState extends State<RegistroSupermercado> {
               );
             },
             child: Image.asset(
-                'images/logo2.png'), // Asegúrate de tener esta imagen en tu carpeta assets
+                'images/logo.png'), // Asegúrate de tener esta imagen en tu carpeta assets
           ),
           onPressed: () {
             // Lógica para ir a la página de inicio
@@ -223,7 +391,7 @@ class _RegistroSupermercadoState extends State<RegistroSupermercado> {
           ),
         ),
       ),
-       body: Stack(
+      body: Stack(
         children: [
           Container(
             decoration: BoxDecoration(
@@ -235,14 +403,14 @@ class _RegistroSupermercadoState extends State<RegistroSupermercado> {
           ),
           Positioned(
             left: 100,
-            top: 20,
+            top: 100,
             child: Visibility(
               visible: MediaQuery.of(context).size.width >
                   600, // Cambia el valor según tus necesidade
               child: Image.asset(
                 'images/promo.png',
-                height: 350,
-                width: 350,
+                height: MediaQuery.of(context).size.height * 0.33, // 60% del alto de la pantalla
+               width: MediaQuery.of(context).size.width * 0.33,
               ),
             ),
           ),
@@ -254,8 +422,8 @@ class _RegistroSupermercadoState extends State<RegistroSupermercado> {
                   600, // Cambia el valor según tus necesidades
               child: Image.asset(
                 'images/lapiz.png',
-                height: 100,
-                width: 100,
+                height: MediaQuery.of(context).size.height * 0.18, // 60% del alto de la pantalla
+               width: MediaQuery.of(context).size.width * 0.18,
               ),
             ),
           ),
@@ -267,8 +435,47 @@ class _RegistroSupermercadoState extends State<RegistroSupermercado> {
                   600, // Cambia el valor según tus necesidade
               child: Image.asset(
                 'images/regla.png',
-                height: 300,
-                width: 300,
+                height: MediaQuery.of(context).size.height * 0.40, // 60% del alto de la pantalla
+               width: MediaQuery.of(context).size.width * 0.40,
+              ),
+            ),
+          ),
+           Positioned(
+            right: 60,
+            top: 100,
+            child: Visibility(
+              visible: MediaQuery.of(context).size.width >
+                  600, // Cambia el valor según tus necesidades
+              child: Image.asset(
+                'images/avion.png',
+                height: MediaQuery.of(context).size.height * 0.50, // 60% del alto de la pantalla
+               width: MediaQuery.of(context).size.width * 0.50,
+              ),
+            ),
+          ),
+          Positioned(
+            right: 60,
+            top: 250,
+            child: Visibility(
+              visible: MediaQuery.of(context).size.width >
+                  600, // Cambia el valor según tus necesidades
+              child: Image.asset(
+                'images/lapiz.png',
+                height: MediaQuery.of(context).size.height * 0.18, // 60% del alto de la pantalla
+               width: MediaQuery.of(context).size.width * 0.18,
+              ),
+            ),
+          ),
+          Positioned(
+            right: 50,
+            bottom: 0,
+            child: Visibility(
+              visible: MediaQuery.of(context).size.width >
+                  600, // Cambia el valor según tus necesidade
+              child: Image.asset(
+                'images/jugos.png',
+                height: MediaQuery.of(context).size.height * 0.50, // 60% del alto de la pantalla
+               width: MediaQuery.of(context).size.width * 0.50,
               ),
             ),
           ),
@@ -417,34 +624,53 @@ class _RegistroSupermercadoState extends State<RegistroSupermercado> {
                         ),
 
                         SizedBox(height: 20),
-                        TextFormField(
-                          controller: _codigoProductoController,
-                          decoration: InputDecoration(
-                            labelText: 'Código de producto',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(
-                                  20), // Mismo radio de borde que el campo Nombre
+                        Row(
+                          children: [
+                            Expanded(
+                              child: TextFormField(
+                                controller: _codigoProductoController,
+                                decoration: InputDecoration(
+                                  labelText: 'Código de la factura',
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        20), // Mismo radio de borde que el campo Nombre
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors
+                                            .black), // Borde verde agua al enfocar
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  labelStyle: TextStyle(
+                                      color: Colors.black), // Texto en blanco
+                                  fillColor: Colors.white, // Fondo blanco
+                                  filled: true, // Habilita el fondo blanco
+                                  hintStyle: TextStyle(
+                                    color: Colors.grey, // Color de texto gris
+                                  ),
+                                  // ... otras propiedades de decoración ...
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Por favor ingrese el código de la factura';
+                                  }
+                                  return null;
+                                },
+                              ),
                             ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Colors
-                                      .black), // Borde verde agua al enfocar
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            labelStyle: TextStyle(
-                                color: Colors.black), // Texto en blanco
-                            fillColor: Colors.white, // Fondo blanco
-                            filled: true, // Habilita el fondo blanco
-                            hintStyle: TextStyle(
-                              color: Colors.grey, // Color de texto gris
-                            ),
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Por favor ingrese el código de producto';
-                            }
-                            return null;
-                          },
+                            IconButton(
+              icon: Icon(Icons.attach_file),
+              onPressed: pickImage,
+            ),
+            SizedBox(width: 16),
+            if (_selectedImage != null)
+              Image.memory(
+                _selectedImage!.bytes!,
+                height: 50,
+                width: 50,
+                fit: BoxFit.cover,
+              ),
+                          ],
                         ),
 
                         SizedBox(height: 20),
@@ -452,8 +678,11 @@ class _RegistroSupermercadoState extends State<RegistroSupermercado> {
                         ElevatedButton(
                           onPressed: _submitForm,
                           child: Text(
-                            'Registrate YA!!!',
-                            style: TextStyle(color: Colors.white),
+                            'Registrate ahora',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
                           ),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color(0xFF0D2E69),
@@ -473,56 +702,15 @@ class _RegistroSupermercadoState extends State<RegistroSupermercado> {
               ),
             ),
           ),
-          Positioned(
-            right: 200,
-            top: 100,
-            child: Visibility(
-              visible: MediaQuery.of(context).size.width >
-                  600, // Cambia el valor según tus necesidades
-              child: Image.asset(
-                'images/avion.png',
-                height: 250,
-                width: 250,
-              ),
-            ),
-          ),
-          Positioned(
-            right: 100,
-            top: 250,
-            child: Visibility(
-              visible: MediaQuery.of(context).size.width >
-                  600, // Cambia el valor según tus necesidades
-              child: Image.asset(
-                'images/lapiz.png',
-                height: 80,
-                width: 80,
-              ),
-            ),
-          ),
-          Positioned(
-            right: 100,
-            bottom: 20,
-            child: Visibility(
-              visible: MediaQuery.of(context).size.width >
-                  600, // Cambia el valor según tus necesidade
-              child: Image.asset(
-                'images/jugos.png',
-                height: 300,
-                width: 300,
-              ),
-            ),
-          ),
-          
+         
           Positioned(
             bottom: 0,
             left: 0,
             right: 0,
-            
             child: BottomAppBar(
               color: Colors.transparent,
               elevation: 0,
               height: 80,
-              
               child: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
@@ -565,8 +753,7 @@ class _RegistroSupermercadoState extends State<RegistroSupermercado> {
                 ),
               ),
             ),
-            ),
-          
+          ),
         ],
       ),
     );

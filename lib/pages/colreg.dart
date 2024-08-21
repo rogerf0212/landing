@@ -10,11 +10,122 @@ import 'package:landing/pages/diasort.dart';
 import 'package:landing/pages/mecpage.dart';
 
 class RegistroColmado extends StatefulWidget {
+  const RegistroColmado({Key? key}) : super(key: key);
   @override
   _RegistroColmadoState createState() => _RegistroColmadoState();
 }
 
 class _RegistroColmadoState extends State<RegistroColmado> {
+   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      // Mostrar el cuadro de diálogo después de que se cargue la página
+      showDialog(
+  context: context,
+  builder: (BuildContext context) {
+    return AlertDialog(
+      backgroundColor: Color(0xFF0D2E69), // Fondo azul
+      title: Text(
+        'Pasos para participar:',
+        style: TextStyle(
+          fontSize: MediaQuery.of(context).size.width < 600 ? 16 : 36,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+      ),
+      content: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            children: [
+              Image.asset(
+                'images/img1.png',
+                width: 30,
+                height: 30,
+              ),
+              SizedBox(width: 8),
+              Text(
+                'Adquiere cualquier sabor y formato de la marca Santal',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(width: 4),
+          Row(
+            children: [
+              Image.asset(
+                'images/img4.png',
+                width: 30,
+                height: 30,
+              ),
+              SizedBox(width: 8),
+              Text(
+                'Entra a nuestra página web\ny promosantal.com y registra el código\ny del producto',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(width: 4),
+          Row(
+            children: [
+              Image.asset(
+                'images/img2.png',
+                width: 30,
+                height: 30,
+              ),
+              SizedBox(width: 8),
+              Text(
+                'Conserva el empaque de tu producto ya\nque será necesario si resultas ganador.',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(width: 4),
+          Row(
+            children: [
+              Image.asset(
+                'images/img3.png',
+                width: 30,
+                height: 30,
+              ),
+              SizedBox(width: 8),
+              Text(
+                'Prepárate para ser uno de los próximos\nganadores.',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text('Cerrar', style: TextStyle(
+                  color: Colors.white,)),
+        ),
+      ],
+    );
+  },
+);
+    });
+  }
+
   final _formKey = GlobalKey<FormState>();
   final _nombreController = TextEditingController();
   final _cedulaController = TextEditingController();
@@ -69,10 +180,10 @@ class _RegistroColmadoState extends State<RegistroColmado> {
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                title: Text('¡Gracias por participar!',
+                title: Text('¡Tu registro ha sido exitoso!',
                     style: TextStyle(color: Colors.white)),
                 content:
-                    Text('Suerteeeeee', style: TextStyle(color: Colors.white)),
+                    Text('Te deseamos mucha suerte. No olvides visitar nuestra página el\n 30 de septiembre para conocer si eres uno de los ganadores.\n \n ¡Gracias por participar!', style: TextStyle(color: Colors.white),textAlign: TextAlign.center),
                 backgroundColor: Colors.lightBlue, // Fondo azul cielo
                 actions: <Widget>[
                   TextButton(
@@ -119,7 +230,7 @@ class _RegistroColmadoState extends State<RegistroColmado> {
               );
             },
             child: Image.asset(
-              'images/logo2.png',
+              'images/logo.png',
             ), // Asegúrate de tener esta imagen en tu carpeta assets
           ),
           onPressed: () {
@@ -235,14 +346,14 @@ class _RegistroColmadoState extends State<RegistroColmado> {
           ),
           Positioned(
             left: 100,
-            top: 20,
+            top: 100,
             child: Visibility(
               visible: MediaQuery.of(context).size.width >
                   600, // Cambia el valor según tus necesidade
               child: Image.asset(
                 'images/promo.png',
-                height: 350,
-                width: 350,
+                height: MediaQuery.of(context).size.height * 0.33, // 60% del alto de la pantalla
+               width: MediaQuery.of(context).size.width * 0.33,
               ),
             ),
           ),
@@ -254,8 +365,8 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                   600, // Cambia el valor según tus necesidades
               child: Image.asset(
                 'images/lapiz.png',
-                height: 100,
-                width: 100,
+                height: MediaQuery.of(context).size.height * 0.18, // 60% del alto de la pantalla
+               width: MediaQuery.of(context).size.width * 0.18,
               ),
             ),
           ),
@@ -267,8 +378,47 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                   600, // Cambia el valor según tus necesidade
               child: Image.asset(
                 'images/regla.png',
-                height: 300,
-                width: 300,
+                height: MediaQuery.of(context).size.height * 0.40, // 60% del alto de la pantalla
+               width: MediaQuery.of(context).size.width * 0.40,
+              ),
+            ),
+          ),
+          Positioned(
+            right: 60,
+            top: 100,
+            child: Visibility(
+              visible: MediaQuery.of(context).size.width >
+                  600, // Cambia el valor según tus necesidades
+              child: Image.asset(
+                'images/avion.png',
+                height: MediaQuery.of(context).size.height * 0.50, // 60% del alto de la pantalla
+               width: MediaQuery.of(context).size.width * 0.50,
+              ),
+            ),
+          ),
+          Positioned(
+            right: 60,
+            top: 250,
+            child: Visibility(
+              visible: MediaQuery.of(context).size.width >
+                  600, // Cambia el valor según tus necesidades
+              child: Image.asset(
+                'images/lapiz.png',
+                height: MediaQuery.of(context).size.height * 0.18, // 60% del alto de la pantalla
+               width: MediaQuery.of(context).size.width * 0.18,
+              ),
+            ),
+          ),
+          Positioned(
+            right: 60,
+            bottom: 0,
+            child: Visibility(
+              visible: MediaQuery.of(context).size.width >
+                  600, // Cambia el valor según tus necesidade
+              child: Image.asset(
+                'images/jugos.png',
+                height: MediaQuery.of(context).size.height * 0.50, // 60% del alto de la pantalla
+               width: MediaQuery.of(context).size.width * 0.50,
               ),
             ),
           ),
@@ -440,8 +590,8 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                             ),
                           ),
                           validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Por favor ingrese el código de producto';
+                            if (value == null || value.length != 14) {
+                              return 'codigo de producto no valido';
                             }
                             return null;
                           },
@@ -452,8 +602,8 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                         ElevatedButton(
                           onPressed: _submitForm,
                           child: Text(
-                            'Registrate YA!!!',
-                            style: TextStyle(color: Colors.white),
+                            'Registrate ahora',
+                            style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color(0xFF0D2E69),
@@ -473,45 +623,7 @@ class _RegistroColmadoState extends State<RegistroColmado> {
               ),
             ),
           ),
-          Positioned(
-            right: 200,
-            top: 100,
-            child: Visibility(
-              visible: MediaQuery.of(context).size.width >
-                  600, // Cambia el valor según tus necesidades
-              child: Image.asset(
-                'images/avion.png',
-                height: 250,
-                width: 250,
-              ),
-            ),
-          ),
-          Positioned(
-            right: 100,
-            top: 250,
-            child: Visibility(
-              visible: MediaQuery.of(context).size.width >
-                  600, // Cambia el valor según tus necesidades
-              child: Image.asset(
-                'images/lapiz.png',
-                height: 80,
-                width: 80,
-              ),
-            ),
-          ),
-          Positioned(
-            right: 100,
-            bottom: 20,
-            child: Visibility(
-              visible: MediaQuery.of(context).size.width >
-                  600, // Cambia el valor según tus necesidade
-              child: Image.asset(
-                'images/jugos.png',
-                height: 300,
-                width: 300,
-              ),
-            ),
-          ),
+          
           
           Positioned(
             bottom: 0,

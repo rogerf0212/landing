@@ -46,6 +46,9 @@ dependencies:
   cloud_firestore:
   beamer: ^1.6.1
   excel:
+  table_calendar:
+  mailer:
+  
 
 
 dev_dependencies:
