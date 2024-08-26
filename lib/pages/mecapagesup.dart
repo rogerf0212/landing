@@ -1,26 +1,24 @@
+import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
-import 'package:landing/main.dart';
-import 'package:landing/pages/basepage.dart';
-import 'package:landing/pages/diasort.dart';
+
 
 class MecanicasupPage extends StatelessWidget {
+  const MecanicasupPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.blue[900],
+         backgroundColor: Colors.blue[900],
         elevation: 0,
         toolbarHeight: 70.0,
         leading: IconButton(
           icon: GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => HomePage()), // Asegúrate de tener una HomePage definida
-              );
-            },
-            child: Image.asset('images/logo.png'), // Asegúrate de tener esta imagen en tu carpeta assets
+            onTap: () => context.beamToNamed('/home'),
+            child: Image.asset(
+                'images/logo.png'), // Asegúrate de tener esta imagen en tu carpeta assets
           ),
           onPressed: () {
             // Lógica para ir a la página de inicio
@@ -29,12 +27,15 @@ class MecanicasupPage extends StatelessWidget {
         actions: [
           if (MediaQuery.of(context).size.width > 600) ...[
             TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MecanicasupPage()),
-                );
-              },
+              onPressed: () => context.beamToNamed('/home'),
+              child: Text(
+                'Inicio',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            SizedBox(width: 20),
+            TextButton(
+              onPressed: () => context.beamToNamed('/mecanica-super'),
               child: Text(
                 'Mecánica',
                 style: TextStyle(color: Colors.white),
@@ -42,12 +43,7 @@ class MecanicasupPage extends StatelessWidget {
             ),
             SizedBox(width: 20),
             TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => BaseLegalPage()),
-                );
-              },
+              onPressed: () => context.beamToNamed('/base-legal'),
               child: Text(
                 'Base Legal',
                 style: TextStyle(color: Colors.white),
@@ -55,12 +51,7 @@ class MecanicasupPage extends StatelessWidget {
             ),
             SizedBox(width: 20),
             TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => DiasDelSorteoPage()),
-                );
-              },
+              onPressed: () => context.beamToNamed('/dia-sorteo'),
               child: Text(
                 'Días del Sorteo',
                 style: TextStyle(color: Colors.white),
@@ -85,35 +76,28 @@ class MecanicasupPage extends StatelessWidget {
           child: ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
+              // Eliminamos el DrawerHeader y la línea divisoria
+              ListTile(
+                leading: Icon(Icons.home, color: Colors.white),
+                title: Text('Inicio', style: TextStyle(color: Colors.white)),
+                onTap: () => context.beamToNamed('/home'),
+              ),
               ListTile(
                 leading: Icon(Icons.info, color: Colors.white),
                 title: Text('Mecánica', style: TextStyle(color: Colors.white)),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MecanicasupPage()),
-                  );
-                },
+                onTap: () => context.beamToNamed('/mecanica-super'),
               ),
               ListTile(
                 leading: Icon(Icons.gavel, color: Colors.white),
-                title: Text('Base Legal', style: TextStyle(color: Colors.white)),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => BaseLegalPage()),
-                  );
-                },
+                title:
+                    Text('Base Legal', style: TextStyle(color: Colors.white)),
+                onTap: () => context.beamToNamed('/base-legal'),
               ),
               ListTile(
                 leading: Icon(Icons.calendar_today, color: Colors.white),
-                title: Text('Días del Sorteo', style: TextStyle(color: Colors.white)),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => DiasDelSorteoPage()),
-                  );
-                },
+                title: Text('Días del Sorteo',
+                    style: TextStyle(color: Colors.white)),
+                onTap: () => context.beamToNamed('/dia-sorteo'),
               ),
             ],
           ),
@@ -125,7 +109,7 @@ class MecanicasupPage extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('images/fond.png'),
+                  image: AssetImage('images/oscuro.png'),
                   fit: BoxFit.fill,
                 ),
               ),
@@ -146,7 +130,7 @@ class MecanicasupPage extends StatelessWidget {
                           style: TextStyle(
                             fontSize: MediaQuery.of(context).size.width < 600
                                 ? 16
-                                : 36,
+                                : 46,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
@@ -157,7 +141,7 @@ class MecanicasupPage extends StatelessWidget {
                           style: TextStyle(
                             fontSize: MediaQuery.of(context).size.width < 600
                                 ? 16
-                                : 36,
+                                : 46,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
@@ -173,7 +157,7 @@ class MecanicasupPage extends StatelessWidget {
                                 fontSize:
                                     MediaQuery.of(context).size.width < 600
                                         ? 8
-                                        : 16,
+                                        : 26,
                               ),
                             ),
                             Text(
@@ -183,7 +167,7 @@ class MecanicasupPage extends StatelessWidget {
                                 fontSize:
                                     MediaQuery.of(context).size.width < 600
                                         ? 8
-                                        : 16,
+                                        : 26,
                               ),
                             ),
                             Text(
@@ -193,7 +177,7 @@ class MecanicasupPage extends StatelessWidget {
                                 fontSize:
                                     MediaQuery.of(context).size.width < 600
                                         ? 8
-                                        : 16,
+                                        : 26,
                               ),
                             ),
                             Text(
@@ -203,7 +187,7 @@ class MecanicasupPage extends StatelessWidget {
                                 fontSize:
                                     MediaQuery.of(context).size.width < 600
                                         ? 8
-                                        : 16,
+                                        : 26,
                               ),
                             ),
                           ],
@@ -214,7 +198,7 @@ class MecanicasupPage extends StatelessWidget {
                           style: TextStyle(
                             fontSize: MediaQuery.of(context).size.width < 600
                                 ? 8
-                                : 16,
+                                : 26,
                             color: Colors.white,
                           ),
                           textAlign: TextAlign.left,
@@ -225,7 +209,7 @@ class MecanicasupPage extends StatelessWidget {
                           style: TextStyle(
                             fontSize: MediaQuery.of(context).size.width < 600
                                 ? 16
-                                : 36,
+                                : 46,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
@@ -246,7 +230,7 @@ class MecanicasupPage extends StatelessWidget {
                                 fontSize:
                                     MediaQuery.of(context).size.width < 600
                                         ? 8
-                                        : 16,
+                                        : 20,
                               ),
                             ),
                           ],
@@ -266,7 +250,7 @@ class MecanicasupPage extends StatelessWidget {
                                 fontSize:
                                     MediaQuery.of(context).size.width < 600
                                         ? 8
-                                        : 16,
+                                        : 20,
                               ),
                             ),
                           ],
@@ -286,7 +270,7 @@ class MecanicasupPage extends StatelessWidget {
                                 fontSize:
                                     MediaQuery.of(context).size.width < 600
                                         ? 8
-                                        : 16,
+                                        : 20,
                               ),
                             ),
                           ],
@@ -306,7 +290,7 @@ class MecanicasupPage extends StatelessWidget {
                                 fontSize:
                                     MediaQuery.of(context).size.width < 600
                                         ? 8
-                                        : 16,
+                                        : 20,
                               ),
                             ),
                           ],
@@ -322,41 +306,30 @@ class MecanicasupPage extends StatelessWidget {
             ),
           ),
           Positioned(
-            bottom: 0,
-            right: 200,
+            top: 50,
+            left: 400,
             child: Visibility(
               visible: MediaQuery.of(context).size.width > 600,
               child: Image.asset(
                 'images/pre1.png',
-                width: 300,
-                height: 300,
+                height: 0.5 * screenHeight,
+                width: 0.4 * screenWidth,
               ),
             ),
           ),
           Positioned(
-            bottom: -100,
-            left: 400,
+            bottom: -200,
+            left: 300,
             child: Visibility(
               visible: MediaQuery.of(context).size.width > 600,
               child: Image.asset(
                 'images/p2.png',
-                width: 300,
-                height: 300,
+                height: 0.6 * screenHeight,
+                width: 0.5 * screenWidth,
               ),
             ),
           ),
-          Positioned(
-            bottom: 200,
-            left: 400,
-            child: Visibility(
-              visible: MediaQuery.of(context).size.width > 600,
-              child: Image.asset(
-                'images/p1.png',
-                width: 300,
-                height: 300,
-              ),
-            ),
-          ),
+         
           Positioned(
             bottom: 50,
             right: 10,
@@ -364,20 +337,44 @@ class MecanicasupPage extends StatelessWidget {
               visible: MediaQuery.of(context).size.width > 600,
               child: Image.asset(
                 'images/avion.png',
-                width: 300,
-                height: 300,
+                height: 0.6 * screenHeight,
+                width: 0.5 * screenWidth,
               ),
             ),
           ),
           Positioned(
-            top: 130,
-            right: 300,
+            right: 480,
+            top: 50,
+            child: Visibility(
+              visible: screenWidth > 1000,
+              child: Image.asset(
+                'images/promo.png',
+                height: 400,
+                width: 400,
+              ),
+            ),
+          ),
+          Positioned(
+            top: 100,
+            right: 100,
             child: Visibility(
               visible: MediaQuery.of(context).size.width > 600,
               child: Image.asset(
                 'images/lapiz.png',
-                width: 150,
-                height: 150,
+                height: 0.18 * screenHeight,
+                width: 0.18 * screenWidth,
+              ),
+            ),
+          ),
+          Positioned(
+            right: 0.05 * screenWidth,
+            bottom: -0.15 * screenHeight,
+            child: Visibility(
+              visible: screenWidth > 1000,
+              child: Image.asset(
+                'images/regla.png',
+                height: 0.5 * screenHeight,
+                width: 0.4 * screenWidth,
               ),
             ),
           ),

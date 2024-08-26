@@ -48,6 +48,9 @@ dependencies:
   excel:
   table_calendar:
   mailer:
+  url_launcher:
+  http:
+  emailjs:
   
 
 

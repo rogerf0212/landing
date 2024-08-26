@@ -40,11 +40,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Nombre: ${winner!['nombre']}'),
-              Text('Cédula: ${winner!['cedula']}'),
+              Text('No. de Identidad: ${winner!['NodeIdentidad']}'),
               Text('Teléfono: ${winner!['telefono']}'),
               Text('Email: ${winner!['email']}'),
               Text('Producto: ${winner!['codigoProducto']}'),
               Text('Realizó Compra: ${winner!['realizoCompra']}'),
+              Text('Numero de participacion: ${winner!['Noparticipacion']}'),
             ],
           ),
           actions: [
@@ -53,11 +54,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 // Guardar el ganador en la colección "ganadores"
                 final ganadorData = {
                   'nombre': winner!['nombre'],
-                  'cedula': winner!['cedula'],
+                  'NodeIdentidad': winner!['NodeIdentidad'],
                   'telefono': winner!['telefono'],
                   'email': winner!['email'],
                   'codigoProducto': winner!['codigoProducto'],
                   'realizoCompra': winner!['realizoCompra'],
+                  'Noparticipacion': winner!['Noparticipacion'],
                 };
 
                 await FirebaseFirestore.instance
@@ -273,20 +275,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                       .white), // Color de fondo de las filas de datos
                               columns: [
                                 DataColumn(label: Text("Nombre")),
-                                DataColumn(label: Text("Cédula")),
+                                DataColumn(label: Text("No. de Identidad")),
                                 DataColumn(label: Text("Teléfono")),
                                 DataColumn(label: Text("Email")),
                                 DataColumn(label: Text("Producto")),
                                 DataColumn(label: Text("Establecimiento")),
+                                DataColumn(label: Text("No. Participacion")),
+
                               ],
                               rows: entries.map((entry) {
                                 final nombre = entry['nombre'] ?? '';
-                                final cedula = entry['cedula'] ?? '';
+                                final cedula = entry['NodeIdentidad'] ?? '';
                                 final telefono = entry['telefono'] ?? '';
                                 final email = entry['email'] ?? '';
                                 final producto = entry['codigoProducto'] ?? '';
-                                final establecimiento =
-                                    entry['realizoCompra'] ?? '';
+                                final establecimiento = entry['realizoCompra'] ?? '';
+                                final Noparticipacion = entry['Noparticipacion'] ?? '';
 
                                 return DataRow(cells: [
                                   DataCell(Text(nombre)),
@@ -295,6 +299,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   DataCell(Text(email)),
                                   DataCell(Text(producto)),
                                   DataCell(Text(establecimiento)),
+                                  DataCell(Text(Noparticipacion)),
                                 ]);
                               }).toList(),
                             );
@@ -327,20 +332,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   (states) => Colors.white),
                               columns: [
                                 DataColumn(label: Text("Nombre")),
-                                DataColumn(label: Text("Cédula")),
+                                DataColumn(label: Text("No. de Identidad")),
                                 DataColumn(label: Text("Teléfono")),
                                 DataColumn(label: Text("Email")),
                                 DataColumn(label: Text("Producto")),
                                 DataColumn(label: Text("Establecimiento")),
+                                DataColumn(label: Text("No de Participacion")),
                               ],
                               rows: winners.map((winner) {
                                 final nombre = winner['nombre'] ?? '';
-                                final cedula = winner['cedula'] ?? '';
+                                final cedula = winner['NodeIdentidad'] ?? '';
                                 final telefono = winner['telefono'] ?? '';
                                 final email = winner['email'] ?? '';
                                 final producto = winner['codigoProducto'] ?? '';
-                                final establecimiento =
-                                    winner['realizoCompra'] ?? '';
+                                final establecimiento = winner['realizoCompra'] ?? '';
+                                final Noparticipacion = winner['Noparticipacion'] ?? '';
+
 
                                 return DataRow(cells: [
                                   DataCell(Text(nombre)),
@@ -349,6 +356,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   DataCell(Text(email)),
                                   DataCell(Text(producto)),
                                   DataCell(Text(establecimiento)),
+                                  DataCell(Text(Noparticipacion)),
                                 ]);
                               }).toList(),
                             );

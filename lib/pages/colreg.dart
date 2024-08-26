@@ -1,13 +1,8 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:landing/main.dart';
-import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart'; // Importa Firestore
-import 'package:landing/pages/colmado.dart';
-import 'package:landing/pages/basepage.dart';
-import 'package:landing/pages/diasort.dart';
-import 'package:landing/pages/mecpage.dart';
+import 'package:landing/pages/send.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RegistroColmado extends StatefulWidget {
   const RegistroColmado({Key? key}) : super(key: key);
@@ -16,113 +11,119 @@ class RegistroColmado extends StatefulWidget {
 }
 
 class _RegistroColmadoState extends State<RegistroColmado> {
-   @override
+  @override
   void initState() {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       // Mostrar el cuadro de diálogo después de que se cargue la página
       showDialog(
-  context: context,
-  builder: (BuildContext context) {
-    return AlertDialog(
-      backgroundColor: Color(0xFF0D2E69), // Fondo azul
-      title: Text(
-        'Pasos para participar:',
-        style: TextStyle(
-          fontSize: MediaQuery.of(context).size.width < 600 ? 16 : 36,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
-        ),
-      ),
-      content: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            children: [
-              Image.asset(
-                'images/img1.png',
-                width: 30,
-                height: 30,
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: Color(0xFF0D2E69), // Fondo azul
+            title: Text(
+              'Pasos para participar:',
+              style: TextStyle(
+                fontSize: MediaQuery.of(context).size.width < 600 ? 16 : 36,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
-              SizedBox(width: 8),
-              Text(
-                'Adquiere cualquier sabor y formato de la marca Santal',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,
+            ),
+            content: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  children: [
+                    Image.asset(
+                      'images/img1.png',
+                      width: 30,
+                      height: 30,
+                    ),
+                    SizedBox(width: 8),
+                    Text(
+                      'Adquiere cualquier sabor y formato de la marca Santal',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize:
+                            MediaQuery.of(context).size.width < 600 ? 8 : 16,
+                      ),
+                    ),
+                  ],
                 ),
+                SizedBox(width: 4),
+                Row(
+                  children: [
+                    Image.asset(
+                      'images/img4.png',
+                      width: 30,
+                      height: 30,
+                    ),
+                    SizedBox(width: 8),
+                    Text(
+                      'Entra a nuestra página web\ny promosantal.com y registra el código\ny del producto',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize:
+                            MediaQuery.of(context).size.width < 600 ? 8 : 16,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(width: 4),
+                Row(
+                  children: [
+                    Image.asset(
+                      'images/img2.png',
+                      width: 30,
+                      height: 30,
+                    ),
+                    SizedBox(width: 8),
+                    Text(
+                      'Conserva el empaque de tu producto ya\nque será necesario si resultas ganador.',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize:
+                            MediaQuery.of(context).size.width < 600 ? 8 : 16,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(width: 4),
+                Row(
+                  children: [
+                    Image.asset(
+                      'images/img3.png',
+                      width: 30,
+                      height: 30,
+                    ),
+                    SizedBox(width: 8),
+                    Text(
+                      'Prepárate para ser uno de los próximos\nganadores.',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize:
+                            MediaQuery.of(context).size.width < 600 ? 8 : 16,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Cerrar',
+                    style: TextStyle(
+                      color: Colors.white,
+                    )),
               ),
             ],
-          ),
-          SizedBox(width: 4),
-          Row(
-            children: [
-              Image.asset(
-                'images/img4.png',
-                width: 30,
-                height: 30,
-              ),
-              SizedBox(width: 8),
-              Text(
-                'Entra a nuestra página web\ny promosantal.com y registra el código\ny del producto',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(width: 4),
-          Row(
-            children: [
-              Image.asset(
-                'images/img2.png',
-                width: 30,
-                height: 30,
-              ),
-              SizedBox(width: 8),
-              Text(
-                'Conserva el empaque de tu producto ya\nque será necesario si resultas ganador.',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(width: 4),
-          Row(
-            children: [
-              Image.asset(
-                'images/img3.png',
-                width: 30,
-                height: 30,
-              ),
-              SizedBox(width: 8),
-              Text(
-                'Prepárate para ser uno de los próximos\nganadores.',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: MediaQuery.of(context).size.width < 600 ? 8 : 16,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-      actions: [
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: Text('Cerrar', style: TextStyle(
-                  color: Colors.white,)),
-        ),
-      ],
-    );
-  },
-);
+          );
+        },
+      );
     });
   }
 
@@ -136,6 +137,24 @@ class _RegistroColmadoState extends State<RegistroColmado> {
 
   void _submitForm() async {
     if (_formKey.currentState!.validate()) {
+      showDialog(
+        context: context,
+        barrierDismissible:
+            false, // Evita que el usuario cierre el cuadro de diálogo
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: SizedBox(
+              width: 150,
+              height: 150,
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
+            backgroundColor: Colors.lightBlue,
+          );
+        },
+      );
+
       // Consulta Firestore para verificar si el código de producto ya existe
       final existingProduct = await FirebaseFirestore.instance
           .collection('registros')
@@ -164,16 +183,30 @@ class _RegistroColmadoState extends State<RegistroColmado> {
           },
         );
       } else {
+        //var Notemp = 32200000;
+        //String Noparticipacion = Notemp.toString();
+        //const subj = 'Promo Santal';
+        //String mess =
+          //  'Ya estas registrado para el Sorteo, recuerda entrar a nuestra pagina el dia 1ro de Noviembre para ver si eres uno de los Ganadores!\n tu codigo de registro es: $Noparticipacion';
+
+        //await SendEmailService.sendMail(
+          //  email: _emailController.text,
+           // name: _nombreController.text,
+           // subject: subj,
+           // message: mess);
         // Guardar los datos en Firestore
         try {
           await FirebaseFirestore.instance.collection('registros').add({
             'nombre': _nombreController.text,
-            'cedula': _cedulaController.text,
+            'NodeIdentidad': _cedulaController.text,
             'telefono': _telefonoController.text,
             'email': _emailController.text,
             'codigoProducto': _codigoProductoController.text,
             'realizoCompra': _realizoCompra,
+           // 'Noparticipacion': Noparticipacion,
           });
+
+          Navigator.of(context).pop();
 
           // Mostrar un cuadro de diálogo personalizado
           showDialog(
@@ -182,8 +215,10 @@ class _RegistroColmadoState extends State<RegistroColmado> {
               return AlertDialog(
                 title: Text('¡Tu registro ha sido exitoso!',
                     style: TextStyle(color: Colors.white)),
-                content:
-                    Text('Te deseamos mucha suerte. No olvides visitar nuestra página el\n 30 de septiembre para conocer si eres uno de los ganadores.\n \n ¡Gracias por participar!', style: TextStyle(color: Colors.white),textAlign: TextAlign.center),
+                content: Text(
+                    'Te deseamos mucha suerte. No olvides visitar nuestra página el\n 1ro de Noviembre para conocer si eres uno de los ganadores.\n \n ¡Gracias por participar!',
+                    style: TextStyle(color: Colors.white),
+                    textAlign: TextAlign.center),
                 backgroundColor: Colors.lightBlue, // Fondo azul cielo
                 actions: <Widget>[
                   TextButton(
@@ -204,11 +239,18 @@ class _RegistroColmadoState extends State<RegistroColmado> {
           _telefonoController.clear();
           _emailController.clear();
           _codigoProductoController.clear();
+        //  Notemp = Notemp + 1;
         } catch (e) {
           print('Error al guardar los datos: $e');
         }
       }
     }
+  }
+
+  bool esDireccionValida(String email) {
+    final RegExp regex =
+        RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+    return regex.hasMatch(email);
   }
 
   @override
@@ -221,17 +263,9 @@ class _RegistroColmadoState extends State<RegistroColmado> {
         toolbarHeight: 70.0,
         leading: IconButton(
           icon: GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        HomePage()), // Asegúrate de tener una HomePage definida
-              );
-            },
+            onTap: () => context.beamToNamed('/home'),
             child: Image.asset(
-              'images/logo.png',
-            ), // Asegúrate de tener esta imagen en tu carpeta assets
+                'images/logo.png'), // Asegúrate de tener esta imagen en tu carpeta assets
           ),
           onPressed: () {
             // Lógica para ir a la página de inicio
@@ -240,12 +274,15 @@ class _RegistroColmadoState extends State<RegistroColmado> {
         actions: [
           if (MediaQuery.of(context).size.width > 600) ...[
             TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MecanicaPage()),
-                );
-              },
+              onPressed: () => context.beamToNamed('/home'),
+              child: Text(
+                'Inicio',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            SizedBox(width: 20),
+            TextButton(
+              onPressed: () => context.beamToNamed('/mecanica-col'),
               child: Text(
                 'Mecánica',
                 style: TextStyle(color: Colors.white),
@@ -253,12 +290,7 @@ class _RegistroColmadoState extends State<RegistroColmado> {
             ),
             SizedBox(width: 20),
             TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => BaseLegalPage()),
-                );
-              },
+              onPressed: () => context.beamToNamed('/base-legal'),
               child: Text(
                 'Base Legal',
                 style: TextStyle(color: Colors.white),
@@ -266,12 +298,7 @@ class _RegistroColmadoState extends State<RegistroColmado> {
             ),
             SizedBox(width: 20),
             TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => DiasDelSorteoPage()),
-                );
-              },
+              onPressed: () => context.beamToNamed('/dia-sorteo'),
               child: Text(
                 'Días del Sorteo',
                 style: TextStyle(color: Colors.white),
@@ -298,37 +325,26 @@ class _RegistroColmadoState extends State<RegistroColmado> {
             children: <Widget>[
               // Eliminamos el DrawerHeader y la línea divisoria
               ListTile(
+                leading: Icon(Icons.home, color: Colors.white),
+                title: Text('Inicio', style: TextStyle(color: Colors.white)),
+                onTap: () => context.beamToNamed('/home'),
+              ),
+              ListTile(
                 leading: Icon(Icons.info, color: Colors.white),
                 title: Text('Mecánica', style: TextStyle(color: Colors.white)),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MecanicaPage()),
-                  );
-                },
+                onTap: () => context.beamToNamed('/mecanica-col'),
               ),
               ListTile(
                 leading: Icon(Icons.gavel, color: Colors.white),
                 title:
                     Text('Base Legal', style: TextStyle(color: Colors.white)),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => BaseLegalPage()),
-                  );
-                },
+                onTap: () => context.beamToNamed('/base-legal'),
               ),
               ListTile(
                 leading: Icon(Icons.calendar_today, color: Colors.white),
                 title: Text('Días del Sorteo',
                     style: TextStyle(color: Colors.white)),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => DiasDelSorteoPage()),
-                  );
-                },
+                onTap: () => context.beamToNamed('/dia-sorteo'),
               ),
             ],
           ),
@@ -339,7 +355,7 @@ class _RegistroColmadoState extends State<RegistroColmado> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('images/fond.png'),
+                image: AssetImage('images/oscuro.png'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -352,8 +368,9 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                   600, // Cambia el valor según tus necesidade
               child: Image.asset(
                 'images/promo.png',
-                height: MediaQuery.of(context).size.height * 0.33, // 60% del alto de la pantalla
-               width: MediaQuery.of(context).size.width * 0.33,
+                height: MediaQuery.of(context).size.height *
+                    0.33, // 60% del alto de la pantalla
+                width: MediaQuery.of(context).size.width * 0.33,
               ),
             ),
           ),
@@ -365,8 +382,9 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                   600, // Cambia el valor según tus necesidades
               child: Image.asset(
                 'images/lapiz.png',
-                height: MediaQuery.of(context).size.height * 0.18, // 60% del alto de la pantalla
-               width: MediaQuery.of(context).size.width * 0.18,
+                height: MediaQuery.of(context).size.height *
+                    0.18, // 60% del alto de la pantalla
+                width: MediaQuery.of(context).size.width * 0.18,
               ),
             ),
           ),
@@ -378,8 +396,9 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                   600, // Cambia el valor según tus necesidade
               child: Image.asset(
                 'images/regla.png',
-                height: MediaQuery.of(context).size.height * 0.40, // 60% del alto de la pantalla
-               width: MediaQuery.of(context).size.width * 0.40,
+                height: MediaQuery.of(context).size.height *
+                    0.40, // 60% del alto de la pantalla
+                width: MediaQuery.of(context).size.width * 0.40,
               ),
             ),
           ),
@@ -391,8 +410,9 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                   600, // Cambia el valor según tus necesidades
               child: Image.asset(
                 'images/avion.png',
-                height: MediaQuery.of(context).size.height * 0.50, // 60% del alto de la pantalla
-               width: MediaQuery.of(context).size.width * 0.50,
+                height: MediaQuery.of(context).size.height *
+                    0.50, // 60% del alto de la pantalla
+                width: MediaQuery.of(context).size.width * 0.50,
               ),
             ),
           ),
@@ -404,8 +424,9 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                   600, // Cambia el valor según tus necesidades
               child: Image.asset(
                 'images/lapiz.png',
-                height: MediaQuery.of(context).size.height * 0.18, // 60% del alto de la pantalla
-               width: MediaQuery.of(context).size.width * 0.18,
+                height: MediaQuery.of(context).size.height *
+                    0.18, // 60% del alto de la pantalla
+                width: MediaQuery.of(context).size.width * 0.18,
               ),
             ),
           ),
@@ -417,8 +438,9 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                   600, // Cambia el valor según tus necesidade
               child: Image.asset(
                 'images/jugos.png',
-                height: MediaQuery.of(context).size.height * 0.50, // 60% del alto de la pantalla
-               width: MediaQuery.of(context).size.width * 0.50,
+                height: MediaQuery.of(context).size.height *
+                    0.50, // 60% del alto de la pantalla
+                width: MediaQuery.of(context).size.width * 0.50,
               ),
             ),
           ),
@@ -464,6 +486,12 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                             hintStyle: TextStyle(
                               color: Colors.grey, // Color de texto gris
                             ),
+                            errorStyle: TextStyle(
+                              color: const Color.fromARGB(255, 73, 245, 85),
+                              fontWeight: FontWeight.bold,
+                              fontSize:
+                                  14, // Cambia el color del mensaje de error
+                            ),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -478,7 +506,7 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                           controller: _cedulaController,
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration(
-                            labelText: 'Cédula',
+                            labelText: 'No. de Identidad',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(
                                   20), // Mismo radio de borde que el campo Nombre
@@ -494,10 +522,16 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                             filled: true, // Habilita el fondo blanco
                             hintStyle: TextStyle(
                               color: Colors.grey, // Color de texto gris
+                            ),
+                            errorStyle: TextStyle(
+                              color: const Color.fromARGB(255, 73, 245, 85),
+                              fontWeight: FontWeight.bold,
+                              fontSize:
+                                  14, // Cambia el color del mensaje de error
                             ), // Texto en blanco
                           ),
                           validator: (value) {
-                            if (value == null || value.length != 11) {
+                            if (value == null || value.length < 5) {
                               return 'La cédula no es válida';
                             }
                             return null;
@@ -525,6 +559,12 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                             filled: true, // Habilita el fondo blanco
                             hintStyle: TextStyle(
                               color: Colors.grey, // Color de texto gris
+                            ),
+                            errorStyle: TextStyle(
+                              color: const Color.fromARGB(255, 73, 245, 85),
+                              fontWeight: FontWeight.bold,
+                              fontSize:
+                                  14, // Cambia el color del mensaje de error
                             ), // Texto en blanco
                           ),
                           validator: (value) {
@@ -557,10 +597,18 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                             hintStyle: TextStyle(
                               color: Colors.grey, // Color de texto gris
                             ),
+                            errorStyle: TextStyle(
+                              color: const Color.fromARGB(255, 73, 245, 85),
+                              fontWeight: FontWeight.bold,
+                              fontSize:
+                                  14, // Cambia el color del mensaje de error
+                            ),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Por favor ingrese su correo electrónico';
+                            } else if (!esDireccionValida(value)) {
+                              return 'Ingrese una dirección de correo válida';
                             }
                             return null;
                           },
@@ -588,10 +636,16 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                             hintStyle: TextStyle(
                               color: Colors.grey, // Color de texto gris
                             ),
+                            errorStyle: TextStyle(
+                              color: const Color.fromARGB(255, 73, 245, 85),
+                              fontWeight: FontWeight.bold,
+                              fontSize:
+                                  14, // Cambia el color del mensaje de error
+                            ),
                           ),
                           validator: (value) {
                             if (value == null || value.length != 14) {
-                              return 'codigo de producto no valido';
+                              return 'codigo de producto no valido,';
                             }
                             return null;
                           },
@@ -603,7 +657,10 @@ class _RegistroColmadoState extends State<RegistroColmado> {
                           onPressed: _submitForm,
                           child: Text(
                             'Registrate ahora',
-                            style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
                           ),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color(0xFF0D2E69),
@@ -623,62 +680,39 @@ class _RegistroColmadoState extends State<RegistroColmado> {
               ),
             ),
           ),
-          
-          
           Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            
-            child: BottomAppBar(
-              color: Colors.transparent,
-              elevation: 0,
-              height: 80,
-              
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Image.asset(
-                        'images/logo.png', // Asegúrate de tener esta imagen en tu carpeta assets
-                        height: 50,
-                      ),
-                      Row(
-                        children: [
-                          Image.asset(
-                            'images/face.png', // Asegúrate de tener esta imagen en tu carpeta assets
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                color: Colors.transparent, // Color de fondo transparente
+                height: 80, // Altura del footer
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Image.asset(
+                      'images/logo.png', // Asegúrate de tener esta imagen en tu carpeta assets
+                      height: 50,
+                    ),
+                    Row(
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            launch(
+                                'https://www.instagram.com/santalrd?igsh=cjE0bXo2Nm9zeDQ5');
+                          },
+                          child: Image.asset(
+                            'images/insta.png',
                             height: 44,
                             width: 44,
                           ),
-                          SizedBox(width: 10),
-                          Image.asset(
-                            'images/insta.png', // Asegúrate de tener esta imagen en tu carpeta assets
-                            height: 44,
-                            width: 44,
-                          ),
-                          SizedBox(width: 10),
-                          Image.asset(
-                            'images/tktk.png', // Asegúrate de tener esta imagen en tu carpeta assets
-                            height: 44,
-                            width: 44,
-                          ),
-                          SizedBox(width: 10),
-                          Image.asset(
-                            'images/you.png', // Asegúrate de tener esta imagen en tu carpeta assets
-                            height: 44,
-                            width: 44,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                        ),
+                        SizedBox(width: 20),
+                      ],
+                    ),
+                  ],
                 ),
-              ),
-            ),
-            ),
-          
+              )),
         ],
       ),
     );
